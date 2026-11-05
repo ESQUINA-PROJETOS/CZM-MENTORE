@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Concentre-se · Proposta CZM para o Mêntore 360</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#050c26; --royal:#00008b; --sky:#008cff; --ice:#e8eefb;
+  --ink:#09194a; --indigo:#24246c; --cinza:#666666; --white:#ffffff;
+  --sky-soft:#8ec4ff; --ice-2:#f4f7fd;
+  --text-on-dark:#e8eefb; --muted-on-dark:rgba(232,238,251,.68);
+  --text-on-light:#050c26; --muted-on-light:#4a5270;
+  --font:'Urbanist', Arial, sans-serif;
+  --max:1180px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ color-scheme:light; } }
+:root[data-theme="dark"]{ color-scheme:light; }
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--navy);color:var(--text-on-dark);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+
+/* progress + nav */
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:3px;width:0;background:var(--sky);z-index:60;transition:width .12s linear}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navy);z-index:55}
+.topbar{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;pointer-events:none;mix-blend-mode:difference;color:#fff}
+.topbar span{font-size:13px;letter-spacing:.02em;font-weight:500}
+.topbar .czm{font-weight:700;letter-spacing:.18em;font-size:14px}
+.frame-count{position:fixed;right:28px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:50;font-size:12px;font-weight:500;color:#fff;mix-blend-mode:difference;pointer-events:none;font-variant-numeric:tabular-nums}
+
+/* frames */
+.frame{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:12vh 7vw;overflow:hidden;isolation:isolate}
+.frame.dark{background:var(--navy);color:var(--text-on-dark)}
+.frame.deep{background:linear-gradient(135deg,#050c26 0%,#09194a 55%,#00008b 100%);color:var(--text-on-dark)}
+.frame.light{background:var(--ice);color:var(--text-on-light)}
+.frame.white{background:var(--white);color:var(--text-on-light)}
+.frame.royal{background:var(--royal);color:var(--white)}
+.wrap{position:relative;width:100%;max-width:var(--max);margin:0 auto;z-index:2}
+.kicker{font-size:14px;font-weight:500;color:var(--sky);margin-bottom:14px}
+.light .kicker,.white .kicker{color:var(--royal)}
+h1,h2,h3{font-weight:300;line-height:1.02;letter-spacing:-.015em}
+h1{font-size:clamp(56px,10vw,150px)}
+h2{font-size:clamp(36px,5.6vw,80px);max-width:16ch}
+h3{font-size:clamp(22px,2.6vw,34px);font-weight:500;letter-spacing:-.01em;line-height:1.15}
+.lead{font-size:clamp(18px,1.6vw,23px);max-width:58ch;color:var(--muted-on-dark);margin-top:22px;font-weight:400}
+.light .lead,.white .lead{color:var(--muted-on-light)}
+p{max-width:62ch}
+.b{font-weight:700}
+.sky{color:var(--sky)}
+.grid{display:grid;gap:28px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}.frame{padding:14vh 6vw}}
+.rule{border-top:1px solid rgba(232,238,251,.14);padding-top:18px}
+.light .rule,.white .rule{border-top-color:rgba(5,12,38,.14)}
+.small{font-size:14px;color:var(--muted-on-dark)}
+.light .small,.white .small{color:var(--muted-on-light)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}.reveal.d4{transition-delay:.48s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* arcs grafismo */
+.arcs{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.9}
+.arcs svg{position:absolute;width:140vmax;height:140vmax;left:50%;top:50%;transform:translate(-50%,-50%)}
+.arcs.tr svg{left:auto;right:-55vmax;top:-45vmax;transform:none}
+.arcs.bl svg{left:-60vmax;top:auto;bottom:-70vmax;transform:none}
+.arc{fill:none;stroke:url(#arcGrad);stroke-width:.22;opacity:.9}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;pointer-events:none;z-index:0}
+
+/* hero */
+#hero{min-height:100vh}
+.hero-stage{position:relative;height:100vh;height:100svh;width:100%}
+.frag{position:absolute;padding:10px 16px;border:1px solid rgba(232,238,251,.22);border-radius:999px;font-size:14px;font-weight:500;color:var(--ice);background:rgba(5,12,38,.6);white-space:nowrap;will-change:transform,opacity}
+.frag::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--sky);margin-right:10px;vertical-align:middle;opacity:.8}
+.point{position:absolute;left:50%;top:46%;width:18px;height:18px;border-radius:50%;background:var(--sky);transform:translate(-50%,-50%) scale(.2);box-shadow:0 0 0 0 rgba(0,140,255,.5);opacity:0}
+.hero-title{position:absolute;left:0;right:0;bottom:12vh;padding:0 7vw;opacity:0;transform:translateY(30px)}
+.hero-title h1{font-weight:300}
+.hero-title .lead{margin-top:14px}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:26px;font-size:14px;color:var(--muted-on-dark)}
+.scroll-hint{position:absolute;left:7vw;top:50%;transform:translateY(-50%);font-size:13px;color:var(--muted-on-dark);writing-mode:vertical-rl;letter-spacing:.14em;opacity:.8}
+
+/* big statement */
+.statement{font-size:clamp(34px,5.2vw,74px);font-weight:300;line-height:1.08;letter-spacing:-.015em;max-width:18ch}
+.statement .b{font-weight:700}
+
+/* pieces (problem) */
+.pieces{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:40px}
+.piece{padding:22px;border-radius:14px;background:rgba(232,238,251,.06);border:1px solid rgba(232,238,251,.12);transform:rotate(var(--r,0deg)) translateY(var(--y,0px));transition:transform .9s cubic-bezier(.2,.8,.2,1),background .4s}
+.piece b{display:block;font-weight:700;font-size:18px;margin-bottom:4px}
+.piece span{color:var(--muted-on-dark);font-size:15px}
+.in .piece{transform:rotate(0) translateY(0)}
+
+/* concept toggle */
+.concept{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;margin-top:40px}
+@media (max-width:860px){.concept{grid-template-columns:1fr}}
+.side{padding:36px;border-radius:20px;cursor:pointer;transition:background .5s,transform .5s,box-shadow .5s;border:1px solid rgba(232,238,251,.14);background:rgba(232,238,251,.04)}
+.side h3{font-size:clamp(26px,3vw,40px);font-weight:300;margin-bottom:12px}
+.side p{color:var(--muted-on-dark)}
+.side.active{background:var(--sky);color:var(--navy);box-shadow:0 30px 80px rgba(0,140,255,.35);transform:translateY(-6px)}
+.side.active p{color:rgba(5,12,38,.75)}
+.pivot{width:64px;height:64px;border-radius:50%;background:var(--sky);box-shadow:0 0 0 14px rgba(0,140,255,.14),0 0 60px rgba(0,140,255,.6);margin:0 auto;animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 14px rgba(0,140,255,.14),0 0 60px rgba(0,140,255,.5)}50%{box-shadow:0 0 0 26px rgba(0,140,255,.08),0 0 90px rgba(0,140,255,.8)}}
+@media (prefers-reduced-motion:reduce){.pivot{animation:none}}
+.meanings{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+@media (max-width:860px){.meanings{grid-template-columns:1fr}}
+.meaning{padding-top:18px;border-top:1px solid rgba(232,238,251,.18)}
+.meaning b{display:block;font-size:20px;font-weight:700;margin-bottom:6px}
+.meaning span{color:var(--muted-on-dark)}
+
+/* manifesto */
+.manifesto{max-width:30ch;font-size:clamp(26px,3.4vw,46px);font-weight:300;line-height:1.18;letter-spacing:-.01em}
+.manifesto p{margin:0 0 .55em;opacity:.22;transition:opacity .5s}
+.manifesto p.b{font-weight:700}
+.manifesto p.on{opacity:1}
+.manifesto .sig{margin-top:1.2em;font-size:.6em;color:var(--sky)}
+
+/* answers */
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:40px 60px;margin-top:40px}
+@media (max-width:860px){.answers{grid-template-columns:1fr}}
+.answer{border-top:1px solid rgba(5,12,38,.16);padding-top:20px}
+.answer .q{color:var(--royal);font-weight:500;font-size:15px;margin-bottom:10px}
+.answer h3{margin-bottom:10px}
+.answer p{color:var(--muted-on-light)}
+
+/* phrase system */
+.phrases{margin-top:40px;display:grid;gap:18px}
+.phrase{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:baseline;border-top:1px solid rgba(232,238,251,.14);padding-top:18px}
+@media (max-width:860px){.phrase{grid-template-columns:1fr}}
+.phrase span{color:var(--muted-on-dark);font-size:15px}
+.phrase b{font-weight:300;font-size:clamp(26px,3.4vw,48px);letter-spacing:-.015em;line-height:1.1}
+.phrase b.strong{font-weight:700}
+
+/* language table */
+.lang{margin-top:36px;display:grid;gap:12px}
+.lang-row{display:grid;grid-template-columns:1fr 48px 1fr;gap:18px;align-items:center;padding:18px 22px;border-radius:14px;background:#fff;border:1px solid rgba(5,12,38,.1);cursor:pointer;transition:transform .3s,box-shadow .3s}
+.lang-row:hover,.lang-row.open{box-shadow:0 20px 50px rgba(0,0,139,.12);transform:translateY(-2px)}
+.lang-row .from{color:var(--cinza);text-decoration:line-through;text-decoration-color:rgba(102,102,102,.5)}
+.lang-row .to{font-weight:500;color:var(--royal);opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .4s}
+.lang-row.open .to,.lang-row:hover .to{opacity:1;transform:none}
+.lang-row .arrow{width:48px;height:48px;border-radius:50%;background:var(--ice);display:grid;place-items:center;color:var(--royal)}
+@media (max-width:860px){.lang-row{grid-template-columns:1fr}.lang-row .arrow{display:none}.lang-row .to{opacity:1;transform:none}}
+
+/* audiences */
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+@media (max-width:1000px){.aud{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.aud{grid-template-columns:1fr}}
+.aud-item{padding:24px;border-radius:18px;background:rgba(232,238,251,.05);border:1px solid rgba(232,238,251,.12);min-height:200px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;transition:border-color .4s,background .4s}
+.aud-item:hover{border-color:var(--sky);background:rgba(0,140,255,.08)}
+.aud-item h3{font-size:22px}
+.aud-item .c{color:var(--muted-on-dark);font-size:15px}
+.aud-item .c b{color:var(--ice);font-weight:700;display:block;margin-bottom:2px}
+.aud-item .f{color:var(--sky);font-weight:500}
+
+/* visual direction */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:28px}
+@media (max-width:860px){.swatches{grid-template-columns:repeat(2,1fr)}}
+.sw{height:120px;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:13px;border:1px solid rgba(5,12,38,.08)}
+.sw b{font-weight:700;font-size:14px}
+.type-sample{margin-top:28px;display:grid;gap:10px}
+.type-sample div{display:grid;grid-template-columns:110px 1fr;align-items:baseline;gap:16px;border-top:1px solid rgba(5,12,38,.12);padding-top:10px}
+.type-sample span{font-size:13px;color:var(--muted-on-light)}
+.type-sample .l{font-weight:300;font-size:34px}.type-sample .r{font-weight:400;font-size:34px}.type-sample .bb{font-weight:700;font-size:34px}
+.logo-lockup{display:flex;align-items:center;gap:22px;font-size:46px;font-weight:500;letter-spacing:-.02em;color:var(--navy)}
+.logo-lockup .bar{width:1px;height:54px;background:var(--navy)}
+.logo-lockup .w{display:flex;flex-direction:column;line-height:1}
+.logo-lockup .w small{font-size:15px;font-weight:500;letter-spacing:0;margin-top:6px;text-align:center}
+.logo-lockup .n{position:relative;font-weight:700}
+.logo-lockup .n::before{content:"";position:absolute;inset:-14px -14px;border-radius:50%;border:2px solid var(--navy);border-right-color:transparent;transform:rotate(-30deg)}
+.logo-lockup .n::after{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--navy);top:-14px;right:-6px}
+.royal .logo-lockup,.dark .logo-lockup{color:#fff}
+.royal .logo-lockup .bar,.dark .logo-lockup .bar{background:#fff}
+.royal .logo-lockup .n::before,.dark .logo-lockup .n::before{border-color:#fff;border-right-color:transparent}
+.royal .logo-lockup .n::after,.dark .logo-lockup .n::after{background:#fff}
+.sky-dot{display:inline-block;width:.42em;height:.42em;border-radius:50%;background:var(--sky);vertical-align:middle;margin-left:.15em;transform:translateY(-.1em)}
+
+/* ring phases */
+.ring-wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;margin-top:30px}
+@media (max-width:900px){.ring-wrap{grid-template-columns:1fr}}
+.ring{width:min(100%,460px);margin:0 auto;aspect-ratio:1}
+.ring svg{width:100%;height:100%}
+.ring .seg{fill:none;stroke:rgba(232,238,251,.14);stroke-width:14;stroke-linecap:round;transition:stroke .5s,filter .5s;cursor:pointer}
+.ring .seg.on{stroke:var(--sky);filter:drop-shadow(0 0 10px rgba(0,140,255,.8))}
+.ring .seg.hover{stroke:var(--sky-soft)}
+.ring text{fill:#fff;font-family:var(--font);font-weight:300;font-size:64px;text-anchor:middle}
+.ring .cnt{font-size:22px;fill:rgba(232,238,251,.7);font-weight:500}
+.mods{display:grid;gap:8px}
+.mod{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:center;padding:12px 14px;border-radius:12px;border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
+.mod:hover{background:rgba(232,238,251,.06)}
+.mod.on{border-color:rgba(0,140,255,.5);background:rgba(0,140,255,.08)}
+.mod i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(232,238,251,.3);font-style:normal;font-weight:500;font-size:13px}
+.mod.on i{background:var(--sky);border-color:var(--sky);color:var(--navy)}
+.mod b{font-weight:700;display:block}
+.mod span{font-size:14px;color:var(--muted-on-dark)}
+.ring-ctl{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{font:inherit;font-weight:500;font-size:14px;padding:10px 18px;border-radius:999px;border:1px solid rgba(232,238,251,.3);background:transparent;color:inherit;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.btn:hover,.btn.active{background:var(--sky);color:var(--navy);border-color:var(--sky)}
+.light .btn,.white .btn{border-color:rgba(5,12,38,.25);color:var(--navy)}
+.light .btn:hover,.light .btn.active,.white .btn:hover,.white .btn.active{background:var(--royal);color:#fff;border-color:var(--royal)}
+
+/* applications mockups */
+.apps{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin-top:36px}
+@media (max-width:900px){.apps{grid-template-columns:1fr}}
+.mock{border-radius:16px;overflow:hidden;position:relative;background:linear-gradient(135deg,#050c26,#00008b 70%,#0a2a9a);color:#fff;box-shadow:0 30px 70px rgba(5,12,38,.35)}
+.mock .mk-arcs{position:absolute;inset:0;opacity:.7}
+.mock .mk-in{position:relative;z-index:1;padding:28px}
+.mock.banner{min-height:300px;display:flex;align-items:flex-end}
+.mock.banner h3{font-size:clamp(34px,4.2vw,60px);font-weight:300;line-height:1}
+.mock.teams{min-height:220px;display:flex;align-items:center;justify-content:center;text-align:center}
+.mock.teams h3{font-size:clamp(28px,3vw,44px);font-weight:300}
+.mock.mail{background:#fff;color:var(--navy);border:1px solid rgba(5,12,38,.12);box-shadow:none}
+.mock.mail .mk-in{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.mock.mail .vbar{width:1px;background:rgba(5,12,38,.2);height:70px}
+.mock.mail .name{font-weight:700;font-size:18px}
+.mock.mail .role{font-size:14px;color:var(--muted-on-light)}
+.mock.mail .tag{margin-top:8px;font-size:14px;color:var(--royal);font-weight:500}
+.mock .lk{display:flex;align-items:center;gap:10px;font-weight:500;font-size:18px;letter-spacing:-.01em}
+.mock .lk .bar{width:1px;height:22px;background:currentColor;opacity:.6}
+.mock .lk .n{font-weight:700}
+.wa{display:grid;gap:10px;margin-top:22px}
+.bubble{background:#fff;color:var(--navy);padding:12px 16px;border-radius:14px 14px 14px 4px;max-width:420px;font-size:15px;border:1px solid rgba(5,12,38,.1)}
+.bubble b{font-weight:700;color:var(--royal)}
+
+/* timeline */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;position:relative}
+@media (max-width:860px){.tl{grid-template-columns:1fr}}
+.tl::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:rgba(5,12,38,.18)}
+@media (max-width:860px){.tl::before{display:none}}
+.tl-item{padding:0 26px 0 0;position:relative}
+.tl-item::before{content:"";display:block;width:18px;height:18px;border-radius:50%;background:var(--royal);margin-bottom:22px;box-shadow:0 0 0 6px var(--ice)}
+.tl-item .when{color:var(--royal);font-weight:500;font-size:14px;margin-bottom:6px}
+.tl-item h3{margin-bottom:8px}
+.tl-item p{color:var(--muted-on-light);font-size:15px}
+.dark .tl::before{background:rgba(232,238,251,.18)}
+.dark .tl-item::before{background:var(--sky);box-shadow:0 0 0 6px var(--navy)}
+.dark .tl-item .when{color:var(--sky)}
+.dark .tl-item p{color:var(--muted-on-dark)}
+
+/* video strip */
+#video{padding:0}
+.strip-pin{height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;position:relative}
+.strip-head{padding:0 7vw;max-width:var(--max);margin:0 auto;width:100%}
+.strip{display:flex;gap:18px;padding:40px 7vw;will-change:transform}
+.scene{flex:0 0 clamp(260px,26vw,360px);aspect-ratio:3/4;border-radius:18px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:linear-gradient(160deg,#09194a,#050c26);border:1px solid rgba(232,238,251,.14)}
+.scene.problem{background:linear-gradient(160deg,#1c1f33,#050c26)}
+.scene.turn{background:linear-gradient(160deg,#008cff,#00008b)}
+.scene.journey{background:linear-gradient(160deg,#0a2a9a,#00008b)}
+.scene.result{background:linear-gradient(160deg,#24246c,#050c26)}
+.scene .no{font-size:13px;font-weight:500;color:rgba(232,238,251,.7)}
+.scene h3{font-size:22px;font-weight:500}
+.scene q{display:block;quotes:"“" "”";font-size:15px;color:rgba(232,238,251,.75);font-style:italic;margin-top:10px}
+.scene .dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--sky);box-shadow:0 0 20px var(--sky);top:22px;right:22px;transform:scale(var(--s,1))}
+.scene.problem .dot{opacity:.3}
+
+/* osep hub */
+.hub{position:relative;margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+@media (max-width:900px){.hub{grid-template-columns:1fr}}
+.hub-svg{width:min(100%,520px);margin:0 auto}
+.hub-svg .spoke{stroke:rgba(5,12,38,.18);stroke-width:1.2}
+.hub-svg .node{fill:#fff;stroke:rgba(5,12,38,.2);stroke-width:1.2;cursor:pointer;transition:stroke .3s,fill .3s}
+.hub-svg .node.on,.hub-svg g:hover .node{stroke:var(--royal);fill:#e8eefb}
+.hub-svg text{font-family:var(--font);font-size:15px;font-weight:500;fill:var(--navy);text-anchor:middle;pointer-events:none}
+.hub-svg .core{fill:var(--sky)}
+.hub-info{min-height:260px}
+.hub-info .k{font-size:14px;color:var(--royal);font-weight:500}
+.hub-info h3{font-size:30px;margin:6px 0 12px}
+.hub-info ul{list-style:none;display:grid;gap:8px}
+.hub-info li{padding-left:18px;position:relative;color:var(--muted-on-light)}
+.hub-info li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--sky)}
+
+/* funnel */
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+@media (max-width:860px){.funnel{grid-template-columns:1fr}}
+.stage{padding:22px;border-radius:16px;background:rgba(232,238,251,.05);border:1px solid rgba(232,238,251,.12);position:relative}
+.stage::after{content:"";position:absolute;top:0;left:0;height:4px;width:var(--w,100%);background:var(--sky);border-radius:16px 0 0 0}
+.stage .n{font-size:13px;font-weight:500;color:var(--sky)}
+.stage h3{font-size:24px;margin:6px 0 10px}
+.stage p{font-size:15px;color:var(--muted-on-dark)}
+.stage .kpi{margin-top:14px;padding-top:12px;border-top:1px solid rgba(232,238,251,.14);font-size:14px}
+.stage .kpi b{display:block;color:var(--ice)}
+
+/* instagram numbers */
+.nums{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+@media (max-width:860px){.nums{grid-template-columns:repeat(2,1fr)}}
+.num b{display:block;font-size:clamp(40px,5vw,72px);font-weight:300;letter-spacing:-.02em;line-height:1}
+.num span{font-size:15px;color:var(--muted-on-light)}
+.light .num b{color:var(--royal)}
+
+/* media scenarios */
+.tabs{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.scen{margin-top:30px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:start}
+@media (max-width:900px){.scen{grid-template-columns:1fr}}
+.scen-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.scen-head b{font-size:clamp(44px,6vw,84px);font-weight:300;letter-spacing:-.02em;line-height:1}
+.scen-head span{font-size:16px;color:var(--muted-on-dark)}
+.bars{display:grid;gap:12px;margin-top:22px}
+.bar{display:grid;grid-template-columns:170px 1fr 56px;gap:14px;align-items:center;font-size:15px}
+.bar .track{height:12px;border-radius:999px;background:rgba(232,238,251,.1);overflow:hidden}
+.bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--royal),var(--sky));border-radius:999px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--muted-on-dark)}
+@media (max-width:640px){.bar{grid-template-columns:120px 1fr 48px}}
+.buys{display:grid;gap:14px}
+.buy{padding:16px 18px;border-radius:14px;background:rgba(232,238,251,.05);border:1px solid rgba(232,238,251,.12)}
+.buy b{display:block;font-weight:700;margin-bottom:4px}
+.buy span{font-size:15px;color:var(--muted-on-dark)}
+
+/* kpi table + investment table */
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:15px}
+th,td{text-align:left;padding:14px 12px;border-top:1px solid rgba(5,12,38,.14);vertical-align:top}
+th{font-weight:700;color:var(--royal);border-top:none;font-size:14px}
+.dark table th{color:var(--sky)}
+.dark th,.dark td{border-top-color:rgba(232,238,251,.14)}
+td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
+@media (max-width:700px){table{font-size:14px}th,td{padding:10px 8px}}
+
+/* why */
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+@media (max-width:900px){.why{grid-template-columns:1fr}}
+.why div{border-top:1px solid rgba(232,238,251,.18);padding-top:18px}
+.why h3{font-size:22px;margin-bottom:8px}
+.why p{color:var(--muted-on-dark);font-size:15px}
+
+/* closing */
+#end{min-height:100vh;text-align:center;justify-content:center}
+#end h1{font-size:clamp(60px,12vw,170px)}
+.czm-sig{display:inline-flex;align-items:center;gap:14px;margin-top:60px;font-weight:700;letter-spacing:.3em;font-size:18px}
+.czm-sig i{width:10px;height:10px;border-radius:50%;background:var(--sky);display:inline-block}
+.footer-note{margin-top:28px;font-size:13px;color:var(--muted-on-dark)}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="topbar"><span>Mêntore 360 · Proposta para a concorrência</span><span class="czm">CZM</span></div>
+<div class="frame-count" id="counter">01 / 26</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="arcGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#008cff" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#008cff" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#008cff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- 01 HERO -->
+<section class="frame dark" id="hero" data-title="Abertura">
+  <div class="glow" style="width:60vw;height:60vw;left:20vw;top:10vh;background:#00008b"></div>
+  <div class="arcs tr" data-arcs></div>
+  <div class="hero-stage" id="stage">
+    <div class="scroll-hint">Role para concentrar</div>
+    <div class="frag" data-x="12" data-y="18">RH</div>
+    <div class="frag" data-x="78" data-y="14">Folha de pagamento</div>
+    <div class="frag" data-x="22" data-y="62">Banco</div>
+    <div class="frag" data-x="68" data-y="70">Contabilidade</div>
+    <div class="frag" data-x="48" data-y="10">Vagas abertas</div>
+    <div class="frag" data-x="86" data-y="44">Benefícios</div>
+    <div class="frag" data-x="8" data-y="40">Financeiro</div>
+    <div class="frag" data-x="40" data-y="80">Obrigações fiscais</div>
+    <div class="frag" data-x="60" data-y="38">Planilhas</div>
+    <div class="point" id="point"></div>
+    <div class="hero-title" id="heroTitle">
+      <div class="kicker">Proposta CZM para o lançamento do Mêntore 360</div>
+      <h1>Concentre-se.</h1>
+      <p class="lead">Conceito criativo, identidade do projeto, vídeo-manifesto e um plano multicanal para o lançamento interno em novembro de 2026 e para o mercado em fevereiro de 2027.</p>
+      <div class="hero-meta"><span>5 de novembro de 2026</span><span>Confidencial · uso exclusivo do Marketing do Mêntore</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 O DESAFIO -->
+<section class="frame light" data-title="O desafio">
+  <div class="wrap">
+    <div class="kicker reveal">O que o briefing pede</div>
+    <h2 class="reveal d1">Fazer o mercado entender que o Mêntore saiu do dia do pagamento para estar em todos os dias da empresa.</h2>
+    <p class="lead reveal d2">Sem deixar de ser o Mêntore. O conceito que propomos precisa responder às quatro perguntas colocadas pelo briefing.</p>
+    <div class="answers">
+      <div class="answer reveal d1"><div class="q">Pergunta 1</div><h3>Traduzir “a empresa acontece em um só lugar” numa ideia simples.</h3></div>
+      <div class="answer reveal d2"><div class="q">Pergunta 2</div><h3>Comunicar evolução sem ruptura com a marca.</h3></div>
+      <div class="answer reveal d3"><div class="q">Pergunta 3</div><h3>Funcionar no lançamento interno e crescer para o mercado.</h3></div>
+      <div class="answer reveal d4"><div class="q">Pergunta 4</div><h3>Acomodar uma plataforma que entra em fases.</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 O LUGAR COMUM -->
+<section class="frame deep" data-title="Onde a marca está">
+  <div class="arcs bl" data-arcs></div>
+  <div class="wrap">
+    <div class="kicker reveal">Onde o Mêntore está hoje</div>
+    <p class="statement reveal d1">O Mêntore já é o dia mais importante do mês de milhares de trabalhadores. <span class="b">O dia do pagamento.</span></p>
+    <p class="lead reveal d2">Essa é a força da marca e o ponto de partida da evolução. O Mêntore Banking continua sendo uma das maiores forças da empresa. A questão é o que acontece nos outros 29 dias.</p>
+  </div>
+</section>
+
+<!-- 04 O PROBLEMA -->
+<section class="frame dark" data-title="O problema">
+  <div class="wrap">
+    <div class="kicker reveal">O problema que o mercado não resolveu</div>
+    <h2 class="reveal d1">Nos outros 29 dias, a empresa acontece em pedaços.</h2>
+    <div class="pieces reveal d2" id="pieces">
+      <div class="piece" style="--r:-3deg;--y:30px"><b>Vaga</b><span>nasce em um sistema</span></div>
+      <div class="piece" style="--r:2deg;--y:-20px"><b>Candidato</b><span>é selecionado em outro</span></div>
+      <div class="piece" style="--r:-2deg;--y:40px"><b>Documentos</b><span>seguem por e-mail</span></div>
+      <div class="piece" style="--r:3deg;--y:-30px"><b>Folha</b><span>é calculada em outra plataforma</span></div>
+      <div class="piece" style="--r:-4deg;--y:20px"><b>Benefícios</b><span>com vários fornecedores</span></div>
+      <div class="piece" style="--r:2deg;--y:-40px"><b>Dinheiro</b><span>circula pelo banco</span></div>
+      <div class="piece" style="--r:-2deg;--y:30px"><b>Contabilidade</b><span>reconstrói tudo no fim do mês</span></div>
+    </div>
+    <div class="grid g3" style="margin-top:40px">
+      <div class="rule reveal d1"><b>Informações digitadas várias vezes.</b></div>
+      <div class="rule reveal d2"><b>Processos que não conversam.</b></div>
+      <div class="rule reveal d3"><b>Decisões que chegam atrasadas.</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 O INSIGHT -->
+<section class="frame royal" data-title="O insight">
+  <div class="glow" style="width:50vw;height:50vw;right:-10vw;bottom:-10vh;background:#008cff;opacity:.35"></div>
+  <div class="wrap">
+    <div class="kicker reveal" style="color:#8ec4ff">O insight</div>
+    <p class="statement reveal d1">Você abriu uma empresa para cuidar de quantas empresas?</p>
+    <p class="lead reveal d2" style="color:rgba(255,255,255,.78)">Uma? Engraçado. Porque tem dia que parece que você administra dez. Uma no RH. Outra no financeiro. Outra na contabilidade. Outra no banco. Outra na folha.</p>
+    <p class="statement reveal d3" style="margin-top:48px;font-size:clamp(28px,4vw,56px)">A fragmentação não cobra só tempo. <span class="b">Cobra atenção.</span></p>
+    <p class="lead reveal d4" style="color:rgba(255,255,255,.78)">Quem decide uma empresa grande passa o mês inteiro juntando pedaços. É aí que o Mêntore 360 entra. Não como mais um sistema, mas como o lugar que concentra todos eles.</p>
+  </div>
+</section>
+
+<!-- 06 O CONCEITO -->
+<section class="frame dark" data-title="O conceito">
+  <div class="arcs" data-arcs style="opacity:.5"></div>
+  <div class="wrap">
+    <div class="kicker reveal">O conceito</div>
+    <h1 class="reveal d1" style="font-size:clamp(64px,13vw,190px)">Concentre-se.</h1>
+    <p class="lead reveal d2">Uma palavra com dois lados. O Mêntore concentra a empresa. O gestor concentra a atenção. Quanto mais o Mêntore concentra, menos coisas você precisa ter na cabeça.</p>
+    <div class="concept reveal d3">
+      <div class="side active" data-side="a" tabindex="0" role="button" aria-pressed="true">
+        <h3>A gente concentra.</h3>
+        <p>Pessoas, processos, finanças e informações numa única plataforma. Da primeira contratação ao último número do balanço.</p>
+      </div>
+      <div class="pivot" aria-hidden="true"></div>
+      <div class="side" data-side="b" tabindex="0" role="button" aria-pressed="false">
+        <h3>Você se concentra.</h3>
+        <p>Na próxima ideia. Na próxima conquista. No próximo sonho. Sua empresa precisa de toda a sua atenção, não de toda a sua preocupação.</p>
+      </div>
+    </div>
+    <div class="meanings reveal d4">
+      <div class="meaning"><b>Concentração de sistemas</b><span>Tudo em um só lugar.</span></div>
+      <div class="meaning"><b>Concentração de informações</b><span>Tudo o que importa fica visível.</span></div>
+      <div class="meaning"><b>Concentração de atenção</b><span>A cabeça do empresário livre para pensar no futuro. É o lado mais forte: transforma uma funcionalidade em um benefício humano.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 MANIFESTO -->
+<section class="frame deep" data-title="Manifesto">
+  <div class="arcs tr" data-arcs style="opacity:.6"></div>
+  <div class="wrap">
+    <div class="kicker">Manifesto</div>
+    <div class="manifesto" id="manifesto">
+      <p class="b">Concentre-se.</p>
+      <p>Você abriu uma empresa para cuidar de quantas empresas?</p>
+      <p>Uma? Engraçado. Porque tem dia que parece que você administra dez.</p>
+      <p>Uma no RH. Outra no financeiro. Outra na contabilidade. Outra no banco. Outra na folha de pagamento.</p>
+      <p>Cada uma com seus números, suas informações, seus problemas. E você no meio de todas elas.</p>
+      <p>Tentando juntar as peças de uma empresa que nunca deveria ter sido dividida.</p>
+      <p class="b">Chega de administrar pedaços.</p>
+      <p>O Mêntore 360 reúne pessoas, processos, finanças e informações em uma única plataforma. Da primeira contratação ao último número do balanço.</p>
+      <p>Tudo conversa. Tudo se conecta. Tudo faz sentido.</p>
+      <p>Porque quando a empresa inteira está no mesmo lugar, a sua cabeça pode estar em outro. Na próxima ideia. Na próxima conquista. No próximo sonho.</p>
+      <p class="b">A gente concentra tudo. Para você se concentrar no que importa.</p>
+      <p class="sig">Mêntore 360. Concentre-se.<br>Mêntore. Sonhe e realize.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08 RACIONAL -->
+<section class="frame light" data-title="Racional estratégico">
+  <div class="wrap">
+    <div class="kicker reveal">Racional estratégico</div>
+    <h2 class="reveal d1">As quatro perguntas, respondidas.</h2>
+    <div class="answers">
+      <div class="answer reveal d1"><div class="q">Uma ideia simples</div><h3>Concentrar.</h3><p>Em vez de explicar nove módulos, dizemos o que a plataforma faz pela empresa: concentra. E o que faz pelo gestor: devolve a atenção. Uma palavra, fácil de dizer, entender e repetir.</p></div>
+      <div class="answer reveal d2"><div class="q">Evolução sem ruptura</div><h3>O Mêntore sempre foi concentração.</h3><p>Concentrou o pagamento, o salário e o crédito num só lugar para o trabalhador. Agora concentra a empresa inteira para quem decide. Mesma marca, mesma assinatura, raio maior.</p></div>
+      <div class="answer reveal d3"><div class="q">Do interno ao mercado</div><h3>Primeiro o time se concentra. Depois o mercado.</h3><p>Para o time Mêntore, Concentre-se é uma missão: entender, defender e vender uma coisa só. Para o mercado, é uma permissão: pode focar, a gente cuida do resto.</p></div>
+      <div class="answer reveal d4"><div class="q">Uma plataforma em fases</div><h3>Cada módulo concentra mais uma coisa.</h3><p>A campanha cresce com a plataforma. Cada lançamento anuncia o que passou a estar concentrado: a vaga, a admissão, a folha, a conciliação, o balanço.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 SISTEMA DE FRASES -->
+<section class="frame dark" data-title="Sistema de frases">
+  <div class="wrap">
+    <div class="kicker reveal">Sistema de frases</div>
+    <h2 class="reveal d1">Um conceito, uma assinatura de projeto, uma marca preservada.</h2>
+    <div class="phrases">
+      <div class="phrase reveal d1"><span>Conceito</span><b class="strong">Concentre-se.</b></div>
+      <div class="phrase reveal d2"><span>Assinatura do projeto</span><b>Mêntore 360. Concentre-se.</b></div>
+      <div class="phrase reveal d3"><span>Linha de apoio</span><b>A gente concentra tudo. Para você se concentrar no que importa.</b></div>
+      <div class="phrase reveal d4"><span>Promessa para o mercado</span><b>Sua empresa precisa de toda a sua atenção. Não de toda a sua preocupação.</b></div>
+      <div class="phrase reveal d4"><span>Assinatura da marca, preservada</span><b>Mêntore. Sonhe e realize.</b></div>
+    </div>
+    <p class="small reveal d4" style="margin-top:28px">“Sonhe e realize” ganha um sentido novo: quem se concentra sonha com mais clareza e realiza com mais rapidez.</p>
+  </div>
+</section>
+
+<!-- 10 TOM E LINGUAGEM -->
+<section class="frame light" data-title="Tom de voz">
+  <div class="wrap">
+    <div class="kicker reveal">Tom de voz e território de linguagem</div>
+    <h2 class="reveal d1">Falar do que a atenção ganha, não do sistema.</h2>
+    <p class="lead reveal d2">Confiança sem exagero. Simplicidade sem jargão. O efeito, nunca a ferramenta. Passe o mouse ou toque em cada linha para ver a tradução.</p>
+    <div class="lang reveal d3">
+      <div class="lang-row" tabindex="0"><div class="from">Plataforma integrada de gestão empresarial</div><div class="arrow">→</div><div class="to">A empresa inteira concentrada num só lugar.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Admissão digital com abertura automática de conta</div><div class="arrow">→</div><div class="to">Contratou de manhã. À tarde, a conta já existe. Você nem precisou pensar nisso.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Conciliação bancária automática</div><div class="arrow">→</div><div class="to">O dinheiro entrou e a conciliação já aconteceu. Concentre-se no que vem depois.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Dashboards em tempo real</div><div class="arrow">→</div><div class="to">Todo mundo olhando para o mesmo número. A reunião deixa de ser sobre o dado e passa a ser sobre o que fazer com ele.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Módulo contábil com geração de DRE</div><div class="arrow">→</div><div class="to">A DRE não espera o dia 30. Sua atenção também não.</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:36px">
+      <div class="rule reveal d1"><b>Perseguir:</b> evolução sem ruptura, confiança, simplicidade, pessoas no centro.</div>
+      <div class="rule reveal d2"><b>Evitar:</b> posicionar como banco, jargão de sistemas, prometer todos os módulos de uma vez, tecnologia pela tecnologia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 PARA QUEM -->
+<section class="frame dark" data-title="Para quem falamos">
+  <div class="arcs bl" data-arcs style="opacity:.45"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Para quem falamos</div>
+    <h2 class="reveal d1">Cada decisor tem algo diferente para concentrar.</h2>
+    <p class="lead reveal d2">Empresas brasileiras com grandes operações: muitos trabalhadores, diferentes contratos, unidades, escalas e centros de custo. A mesma ideia, uma dor por cadeira.</p>
+    <div class="aud">
+      <div class="aud-item reveal d1"><h3>CEO e empresário</h3><div class="c"><b>O Mêntore concentra</b>Faturamento, EBITDA, lucro, caixa e riscos num só painel.</div><div class="f">Você se concentra na próxima decisão.</div></div>
+      <div class="aud-item reveal d2"><h3>CFO e financeiro</h3><div class="c"><b>O Mêntore concentra</b>Fluxo de caixa, recebimentos, pagamentos, tributos e projeções.</div><div class="f">Você se concentra em projetar, não em conciliar.</div></div>
+      <div class="aud-item reveal d3"><h3>RH</h3><div class="c"><b>O Mêntore concentra</b>Vagas, admissões, folha, benefícios, férias e turnover.</div><div class="f">Você se concentra em pessoas, não em sistemas.</div></div>
+      <div class="aud-item reveal d1"><h3>Gestor de contrato</h3><div class="c"><b>O Mêntore concentra</b>O resultado por contrato, unidade e posto.</div><div class="f">Você se concentra no contrato que dá resultado.</div></div>
+      <div class="aud-item reveal d2"><h3>Contabilidade</h3><div class="c"><b>O Mêntore concentra</b>Cada lançamento na origem, com trilha de auditoria.</div><div class="f">Você se concentra em analisar, não em reconstruir.</div></div>
+      <div class="aud-item reveal d3"><h3>Time Mêntore</h3><div class="c"><b>O Mêntore concentra</b>Nove módulos num único benefício que todo mundo entende.</div><div class="f">Você se concentra em vender uma coisa só.</div></div>
+    </div>
+    <p class="small reveal d4" style="margin-top:26px">O trabalhador segue no centro da marca: conta, salário, cartão e benefícios continuam concentrados no mesmo lugar de sempre.</p>
+  </div>
+</section>
+
+<!-- 12 DIREÇÃO VISUAL -->
+<section class="frame white" data-title="Direção visual">
+  <div class="wrap">
+    <div class="kicker reveal">Identidade do projeto</div>
+    <h2 class="reveal d1">A marca não muda. O que muda é onde a luz se concentra.</h2>
+    <p class="lead reveal d2">Seguimos o Brand Guidelines 2026 v2 na íntegra: lockup Mêntore e 360, paleta, Urbanist, arcos e fotografia. O conceito entra pelo grafismo: os arcos convergem para o ponto azul do 360, o lugar onde tudo se concentra.</p>
+    <div class="grid g2" style="margin-top:40px;align-items:center">
+      <div class="reveal d2">
+        <div class="logo-lockup"><div class="w">mêntore<small>Sonhe e realize</small></div><div class="bar"></div><div class="n">360</div></div>
+        <p class="small" style="margin-top:34px">Lockup oficial, proporções fixas, área de proteção de 1x “e”. As frentes (Recrutamento, Benefícios, Banking) são atributos de comunicação, não submarcas. Só Contabilidade mantém descritor.</p>
+      </div>
+      <div class="reveal d3">
+        <svg viewBox="0 0 400 300" width="100%" aria-label="Grafismo de concentração: arcos convergindo para o ponto azul">
+          <defs><radialGradient id="pg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#008cff"/><stop offset="1" stop-color="#008cff" stop-opacity="0"/></radialGradient></defs>
+          <rect width="400" height="300" rx="18" fill="#050c26"/>
+          <g fill="none" stroke="#008cff" stroke-width="1.4" class="cvg">
+            <circle cx="200" cy="150" r="140" stroke-opacity=".12"/>
+            <circle cx="200" cy="150" r="112" stroke-opacity=".2"/>
+            <circle cx="200" cy="150" r="84" stroke-opacity=".32"/>
+            <circle cx="200" cy="150" r="56" stroke-opacity=".5"/>
+            <circle cx="200" cy="150" r="30" stroke-opacity=".8"/>
+          </g>
+          <circle cx="200" cy="150" r="60" fill="url(#pg)" opacity=".5"/>
+          <circle cx="200" cy="150" r="9" fill="#008cff"/>
+          <text x="22" y="276" fill="#e8eefb" font-family="Urbanist,Arial" font-size="15" font-weight="300">Arcos que convergem. Fundo Navy. Ponto Sky.</text>
+        </svg>
+      </div>
+    </div>
+    <div class="swatches reveal d3">
+      <div class="sw" style="background:#050c26;color:#fff"><b>Navy 360</b>#050c26 · fundos e textos</div>
+      <div class="sw" style="background:#00008b;color:#fff"><b>Royal 360</b>#00008b · títulos e destaques</div>
+      <div class="sw" style="background:#008cff;color:#fff"><b>Sky 360</b>#008cff · o ponto e as ações</div>
+      <div class="sw" style="background:#e8eefb;color:#050c26"><b>Ice</b>#e8eefb · fundos claros</div>
+    </div>
+    <div class="type-sample reveal d4">
+      <div><span>Urbanist Light</span><div class="l">Concentre-se no que importa.</div></div>
+      <div><span>Urbanist Regular</span><div class="r">Da vaga ao balanço.</div></div>
+      <div><span>Urbanist Bold</span><div class="bb">Mêntore 360. Concentre-se.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 FASES -->
+<section class="frame dark" data-title="Uma plataforma em fases">
+  <div class="wrap">
+    <div class="kicker reveal">Uma plataforma em fases</div>
+    <h2 class="reveal d1">A cada módulo, mais uma coisa concentrada.</h2>
+    <p class="lead reveal d2">Nove arcos, um por módulo. Hoje, só o Mêntore Banking está aceso. A cada lançamento, um novo arco acende em todas as peças ao mesmo tempo. Clique nos módulos para ver a campanha crescer.</p>
+    <div class="ring-wrap reveal d3">
+      <div class="ring"><svg viewBox="0 0 320 320" id="ringSvg" aria-label="Anel com nove módulos"></svg></div>
+      <div>
+        <div class="mods" id="mods">
+          <div class="mod" data-i="0"><i>1</i><div><b>Recrutamento</b><span>Concentre a vaga. Nenhuma se perde entre sistemas.</span></div></div>
+          <div class="mod" data-i="1"><i>2</i><div><b>Admissão digital</b><span>Concentre a chegada. Documentos, conta e cartão no mesmo dia.</span></div></div>
+          <div class="mod" data-i="2"><i>3</i><div><b>Pessoas</b><span>Concentre o ponto, as escalas e as férias.</span></div></div>
+          <div class="mod" data-i="3"><i>4</i><div><b>Folha</b><span>Concentre a folha. Sem correria no fim do mês.</span></div></div>
+          <div class="mod" data-i="4"><i>5</i><div><b>Benefícios</b><span>Concentre os benefícios num só cartão.</span></div></div>
+          <div class="mod on" data-i="5"><i>6</i><div><b>Mêntore Banking · já disponível</b><span>Onde tudo começou: o dia do pagamento.</span></div></div>
+          <div class="mod" data-i="6"><i>7</i><div><b>Gestão financeira</b><span>Concentre o caixa. A conciliação acontece sozinha.</span></div></div>
+          <div class="mod" data-i="7"><i>8</i><div><b>Contábil</b><span>Concentre o balanço. A DRE não espera o dia 30.</span></div></div>
+          <div class="mod" data-i="8"><i>9</i><div><b>Fiscal e obrigações</b><span>Concentre as obrigações. Sem corrida de certidões.</span></div></div>
+        </div>
+        <div class="ring-ctl"><button class="btn" data-ring="1">Hoje</button><button class="btn" data-ring="5">Fase a fase</button><button class="btn" data-ring="9">Plataforma completa</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 APLICAÇÕES -->
+<section class="frame light" data-title="Aplicações">
+  <div class="wrap">
+    <div class="kicker reveal">Aplicações</div>
+    <h2 class="reveal d1">A sede, as reuniões e o e-mail se concentram primeiro.</h2>
+    <div class="apps">
+      <div class="mock banner reveal d1">
+        <svg class="mk-arcs" viewBox="0 0 600 300" preserveAspectRatio="none"><g fill="none" stroke="#008cff" stroke-width="1.2"><circle cx="560" cy="40" r="120" stroke-opacity=".5"/><circle cx="560" cy="40" r="170" stroke-opacity=".3"/><circle cx="560" cy="40" r="220" stroke-opacity=".18"/><circle cx="560" cy="40" r="270" stroke-opacity=".1"/></g><circle cx="560" cy="40" r="7" fill="#008cff"/></svg>
+        <div class="mk-in"><h3>Concentre-se.</h3><p style="margin:14px 0 20px;color:rgba(232,238,251,.75)">A gente concentra tudo. Para você se concentrar no que importa.</p><div class="lk">mêntore<span class="bar"></span><span class="n">360</span></div><div class="small" style="margin-top:8px;color:rgba(232,238,251,.6)">Banner da sede · lançamento interno</div></div>
+      </div>
+      <div style="display:grid;gap:22px">
+        <div class="mock teams reveal d2">
+          <svg class="mk-arcs" viewBox="0 0 600 220" preserveAspectRatio="none"><g fill="none" stroke="#008cff" stroke-width="1.2"><circle cx="40" cy="200" r="120" stroke-opacity=".4"/><circle cx="40" cy="200" r="180" stroke-opacity=".22"/><circle cx="40" cy="200" r="240" stroke-opacity=".12"/></g></svg>
+          <div class="mk-in"><h3>Mêntore 360. Concentre-se.</h3><div class="small" style="margin-top:10px;color:rgba(232,238,251,.6)">Fundo para Teams e videoconferências</div></div>
+        </div>
+        <div class="mock mail reveal d3">
+          <div class="mk-in"><div class="lk" style="color:#050c26">mêntore<span class="bar"></span><span class="n">360</span></div><div class="vbar"></div><div><div class="name">Nome Sobrenome</div><div class="role">Cargo · Mêntore</div><div class="tag">Mêntore 360. Concentre-se.</div><div class="role">Mêntore. Sonhe e realize.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:34px">
+      <div class="reveal d2"><div class="kicker">WhatsApp interno e intranet</div>
+        <div class="wa">
+          <div class="bubble"><b>Comunicação Mêntore</b><br>Faltam 7 dias. Onde está a sua atenção? Em breve, num lugar só.</div>
+          <div class="bubble"><b>Comunicação Mêntore</b><br>Chegou o dia. Às 10h, o CEO conta tudo no all-hands. Concentre-se.</div>
+          <div class="bubble"><b>Intranet</b><br>Hoje começa o Mêntore 360. Assista ao vídeo do CEO e descubra o que a gente passa a concentrar primeiro.</div>
+        </div>
+      </div>
+      <div class="reveal d3"><div class="kicker">Kit completo pedido pelo briefing</div>
+        <p style="color:var(--muted-on-light)">Logotipo e selo de aplicação do 360 dentro do guide, paleta, slogan, templates de apresentação, assinatura de e-mail, fundos para Teams, banners para a sede, painéis digitais, protetores de tela, materiais para TVs corporativas, peças para intranet e WhatsApp interno. Tudo com a mesma luz concentrada no ponto azul.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 LANÇAMENTO INTERNO -->
+<section class="frame dark" data-title="Lançamento interno">
+  <div class="arcs tr" data-arcs style="opacity:.4"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Lançamento interno · a partir de novembro de 2026</div>
+    <h2 class="reveal d1">O time sabe antes de todo mundo.</h2>
+    <p class="lead reveal d2">Quem vai vender o 360 precisa sentir o conceito antes de explicá-lo. Por isso o lançamento interno não é um comunicado. É uma semana em que a empresa inteira pratica concentrar.</p>
+    <div class="tl">
+      <div class="tl-item reveal d1"><div class="when">Uma semana antes · teaser</div><h3>Onde está a sua atenção?</h3><p>Contagem regressiva nas TVs, protetores de tela e WhatsApp. Pedaços de sistemas aparecem espalhados pela sede. Ninguém explica o que vai acontecer.</p></div>
+      <div class="tl-item reveal d2"><div class="when">No dia · revelação</div><h3>All-hands com o CEO</h3><p>Os pedaços se concentram num só ponto. Vídeo de 60 segundos, o conceito, o primeiro arco do anel aceso e a missão do time: concentrar.</p></div>
+      <div class="tl-item reveal d3"><div class="when">Na semana · a dinâmica</div><h3>Desafio Concentre-se</h3><p>Cada área mapeia o que hoje faz em pedaços e o que o 360 vai concentrar para o cliente. As respostas viram o Mural da Concentração na sede e o argumento comercial de cada time.</p></div>
+      <div class="tl-item reveal d4"><div class="when">Contínuo · sustentação</div><h3>Um arco por vez</h3><p>A intranet acompanha cada fase: qual módulo acendeu, o que passou a estar concentrado e as frases prontas para o comercial usar.</p></div>
+    </div>
+    <p class="small reveal d4" style="margin-top:30px">Kit interno pronto em até três semanas após a aprovação. Guia de 30 segundos para o comercial explicar o 360 com uma palavra.</p>
+  </div>
+</section>
+
+<!-- 16 VÍDEO-MANIFESTO -->
+<section class="frame deep" id="video" data-title="Vídeo-manifesto">
+  <div class="strip-pin" id="stripPin">
+    <div class="strip-head">
+      <div class="kicker">Vídeo-manifesto · 2 min 30 s · narrado pelo CEO</div>
+      <h2 style="max-width:22ch">O dia em que a empresa se concentrou.</h2>
+      <p class="lead" style="margin-top:12px">Doze cenas, a estrutura do briefing. Seguimos uma contratação do começo ao fim. O ponto azul atravessa a empresa, da vaga ao balanço. Do barulho ao silêncio.</p>
+    </div>
+    <div class="strip" id="strip">
+      <div class="scene problem"><div><span class="no">01 · Problema</span><h3>Vários sistemas</h3><q>Todo mês, a sua empresa vive em dez lugares.</q></div><span class="dot"></span><span class="no">Dia 30, 22h. Escritório aceso, dez telas abertas.</span></div>
+      <div class="scene problem"><div><span class="no">02 · Problema</span><h3>Informações fragmentadas</h3><q>O que aconteceu num lugar é refeito em outro.</q></div><span class="dot"></span><span class="no">A vaga numa tela, a folha em outra.</span></div>
+      <div class="scene problem"><div><span class="no">03 · Problema</span><h3>Resultado que não aparece</h3><q>E a resposta mais simples chega atrasada.</q></div><span class="dot"></span><span class="no">Quanto deu o contrato? Só no fechamento.</span></div>
+      <div class="scene turn"><div><span class="no">04 · Virada</span><h3>Entrada do Mêntore</h3><q>E se tudo isso estivesse num lugar só?</q></div><span class="dot" style="--s:1.8"></span><span class="no">As telas se apagam. Um ponto azul acende.</span></div>
+      <div class="scene journey"><div><span class="no">05 · Jornada</span><h3>A jornada integrada</h3><q>Aqui, cada acontecimento tem uma única origem.</q></div><span class="dot"></span><span class="no">O ponto se espalha pela empresa.</span></div>
+      <div class="scene journey"><div><span class="no">06 · Jornada</span><h3>Recrutamento</h3><q>Tudo começa quando alguém é contratado.</q></div><span class="dot"></span><span class="no">Ana recebe a proposta pelo celular.</span></div>
+      <div class="scene journey"><div><span class="no">07 · Jornada</span><h3>Admissão e conta</h3><q>No mesmo dia, sem ninguém digitar duas vezes.</q></div><span class="dot"></span><span class="no">Ela assina. A conta abre. O cartão sai.</span></div>
+      <div class="scene journey"><div><span class="no">08 · Jornada</span><h3>Salário e benefícios</h3><q>O dia do pagamento dela também mudou.</q></div><span class="dot"></span><span class="no">O salário cai. Os benefícios já estão lá.</span></div>
+      <div class="scene journey"><div><span class="no">09 · Jornada</span><h3>Movimentações</h3><q>O dinheiro se move e tudo se atualiza.</q></div><span class="dot"></span><span class="no">O pagamento sai e o financeiro já sabe.</span></div>
+      <div class="scene journey"><div><span class="no">10 · Jornada</span><h3>DRE e balanço</h3><q>No dia 30, não há nada para reconstruir.</q></div><span class="dot"></span><span class="no">A contadora vê o lançamento na hora.</span></div>
+      <div class="scene result"><div><span class="no">11 · Resultado</span><h3>Dashboards</h3><q>Cada contrato, cada posto, cada pessoa. Numa tela só.</q></div><span class="dot" style="--s:1.4"></span><span class="no">O CEO vê o mês enquanto ele acontece.</span></div>
+      <div class="scene result"><div><span class="no">12 · Mensagem final</span><h3>Concentre-se.</h3><q>A gente concentra tudo. Para você se concentrar no que importa. Mêntore 360. Concentre-se.</q></div><span class="dot" style="--s:2.2"></span><span class="no">Dia 30, 18h. As luzes se apagam no horário.</span></div>
+    </div>
+    <div class="strip-head"><p class="small">Versões: manifesto completo, 60 s para o lançamento interno, cortes de 30 s e 15 s para LinkedIn e YouTube. Interfaces abstratas e pessoas reais, luz fria e azulada, conforme o guide. Nada de demonstração de software.</p></div>
+  </div>
+</section>
+
+<!-- 17 LANÇAMENTO AO MERCADO -->
+<section class="frame light" data-title="Lançamento ao mercado">
+  <div class="wrap">
+    <div class="kicker reveal">Lançamento ao mercado · fevereiro de 2027</div>
+    <h2 class="reveal d1">O mercado recebe uma permissão, não um sistema.</h2>
+    <p class="lead reveal d2">Concentre-se chega ao decisor como um convite: pode focar, a gente concentra o resto. Isso define o plano: pouca explicação, muita presença onde o decisor já está, e um caminho curto até a conversa comercial.</p>
+    <div class="grid g3" style="margin-top:40px">
+      <div class="rule reveal d1"><h3>Clientes primeiro</h3><p style="color:var(--muted-on-light);margin-top:8px">Quem já usa o Mêntore conhece o 360 antes, num encontro dedicado. Viram os primeiros depoimentos.</p></div>
+      <div class="rule reveal d2"><h3>O CEO como porta-voz</h3><p style="color:var(--muted-on-light);margin-top:8px">O manifesto abre a campanha. Imprensa de negócios, eventos do setor e o LinkedIn do CEO apresentam a nova categoria.</p></div>
+      <div class="rule reveal d3"><h3>Uma fase, uma campanha</h3><p style="color:var(--muted-on-light);margin-top:8px">Cada módulo novo anuncia o que passou a estar concentrado. A mídia acompanha o calendário da plataforma.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 18 ECOSSISTEMA OSEP -->
+<section class="frame white" data-title="Ecossistema multicanal">
+  <div class="wrap">
+    <div class="kicker reveal">Ecossistema multicanal</div>
+    <h2 class="reveal d1">Tudo gira em torno de um ponto.</h2>
+    <p class="lead reveal d2">Owned, shared, earned e paid, organizados para levar o decisor do primeiro contato à conversa. Toque em cada canal.</p>
+    <div class="hub reveal d3">
+      <svg class="hub-svg" viewBox="0 0 520 520" id="hub" aria-label="Diagrama de canais ao redor do Mêntore 360"></svg>
+      <div class="hub-info" id="hubInfo">
+        <div class="k">Toque em um canal</div>
+        <h3>Mêntore 360 no centro</h3>
+        <ul><li>Página do 360: a plataforma explicada pelo que concentra, módulo a módulo.</li><li>Manifesto como peça-mãe; cada canal recebe um corte.</li><li>O ponto azul é o mesmo em todas as peças: a marca presente em todos os dias.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 JORNADA DO DECISOR -->
+<section class="frame dark" data-title="Jornada do decisor">
+  <div class="wrap">
+    <div class="kicker reveal">Jornada do decisor</div>
+    <h2 class="reveal d1">Da atenção à reunião, em quatro passos.</h2>
+    <div class="funnel">
+      <div class="stage reveal d1" style="--w:100%"><div class="n">Atenção</div><h3>Ver</h3><p>Manifesto em 60 s e cortes de 15 s no LinkedIn e no YouTube. Imprensa de negócios com o CEO.</p><div class="kpi"><b>Alcance qualificado</b>Decisores alcançados, frequência, visualizações completas.</div></div>
+      <div class="stage reveal d2" style="--w:75%"><div class="n">Entendimento</div><h3>Entender</h3><p>Conteúdo por cadeira: uma dor por decisor. Página do 360 e artigos do CEO e das lideranças.</p><div class="kpi"><b>Engajamento qualificado</b>Tempo na página, cliques por cadeira, salvamentos.</div></div>
+      <div class="stage reveal d3" style="--w:50%"><div class="n">Conversa</div><h3>Conversar</h3><p>Convite para demonstração guiada e encontros com clientes atuais. Remarketing para quem viu o manifesto.</p><div class="kpi"><b>Leads qualificados</b>Pedidos de demonstração por cargo e porte.</div></div>
+      <div class="stage reveal d4" style="--w:30%"><div class="n">Decisão</div><h3>Decidir</h3><p>Reunião comercial com o argumento concentrado: o que o 360 concentra para aquela empresa.</p><div class="kpi"><b>Reuniões e contratos</b>Reuniões realizadas, propostas, empresas administradas.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 20 INSTAGRAM / JÁ COMEÇAMOS -->
+<section class="frame light" data-title="A gente já começou">
+  <div class="wrap">
+    <div class="kicker reveal">A gente já começou</div>
+    <h2 class="reveal d1">Estudamos os 40 posts mais recentes do Mêntore.</h2>
+    <div class="nums reveal d2">
+      <div class="num"><b>1.877</b><span>views médias por Reel</span></div>
+      <div class="num"><b>11%</b><span>da base, o alcance médio de um Reel</span></div>
+      <div class="num"><b>0</b><span>comentários visíveis no período</span></div>
+      <div class="num"><b>1,7×</b><span>mais views nos Reels em collab</span></div>
+    </div>
+    <div class="grid g2" style="margin-top:40px">
+      <div class="rule reveal d2"><h3>O que isso muda no plano</h3><p style="color:var(--muted-on-light);margin-top:8px">O Instagram fala hoje com RH e colaboradores. Ele continua sendo o canal do trabalhador e do RH, com comentários abertos, collabs como padrão e séries com identidade própria. Para chegar a CEOs e CFOs, o 360 precisa de outro território: LinkedIn, YouTube e imprensa de negócios à frente.</p></div>
+      <div class="rule reveal d3"><h3>Por que isso importa para a concorrência</h3><p style="color:var(--muted-on-light);margin-top:8px">Antes de entregar esta proposta, já estudamos o canal do Mêntore. É assim que pretendemos trabalhar: com dados na mão desde o primeiro dia.</p><p class="small" style="margin-top:10px">Fonte: métricas públicas do @mentoresonheerealize, posts de 7/9 a 28/10/2026, coletadas em 29/10/2026.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 21 PLANO DE MÍDIA -->
+<section class="frame dark" data-title="Plano de mídia">
+  <div class="arcs bl" data-arcs style="opacity:.35"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Plano de mídia · três cenários</div>
+    <h2 class="reveal d1">Três tamanhos para a mesma ideia.</h2>
+    <p class="lead reveal d2">O briefing não pede mídia. Levamos como diferencial: três cenários de investimento, com a mesma arquitetura de canais e intensidades diferentes. Valores de mídia, a validar com o Marketing do Mêntore.</p>
+    <div class="tabs reveal d3" id="tabs">
+      <button class="btn" data-s="0">Essencial</button>
+      <button class="btn active" data-s="1">Referência</button>
+      <button class="btn" data-s="2">Liderança</button>
+    </div>
+    <div class="scen reveal d3">
+      <div>
+        <div class="scen-head"><b id="scenValue">R$ 10 mi</b><span id="scenLabel">Referência · o patamar da campanha anterior</span></div>
+        <p id="scenDesc" style="margin-top:12px;color:var(--muted-on-dark)"></p>
+        <div class="bars" id="bars"></div>
+      </div>
+      <div class="buys" id="buys"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 22 MENSURAÇÃO -->
+<section class="frame light" data-title="Mensuração">
+  <div class="wrap">
+    <div class="kicker reveal">Mensuração</div>
+    <h2 class="reveal d1">Medir o que o briefing quer medir.</h2>
+    <p class="lead reveal d2">O crescimento do Mêntore passa a ser medido em empresas administradas e operações transformadas, não só em contas abertas. A campanha segue a mesma régua.</p>
+    <table class="reveal d3">
+      <thead><tr><th>Etapa</th><th>KPI primário</th><th>Métricas de apoio</th><th>Ferramenta</th></tr></thead>
+      <tbody>
+        <tr><td>Interno</td><td>Time que sabe explicar o 360 numa frase</td><td>Participação no all-hands, respostas ao Desafio Concentre-se, uso do kit</td><td>Pesquisa interna, intranet</td></tr>
+        <tr><td>Atenção</td><td>Decisores alcançados com frequência mínima</td><td>Visualizações completas do manifesto, lift de reconhecimento</td><td>LinkedIn Campaign Manager, YouTube, brand lift</td></tr>
+        <tr><td>Entendimento</td><td>Visitas qualificadas à página do 360</td><td>Tempo na página, cliques por cadeira, artigos lidos</td><td>GA4, LinkedIn</td></tr>
+        <tr><td>Conversa</td><td>Pedidos de demonstração por cargo e porte</td><td>Custo por lead qualificado, taxa de resposta</td><td>GA4, CRM do Mêntore</td></tr>
+        <tr><td>Decisão</td><td>Reuniões comerciais realizadas</td><td>Propostas, empresas administradas, folhas processadas</td><td>CRM e comercial do Mêntore</td></tr>
+      </tbody>
+    </table>
+    <p class="small reveal d4" style="margin-top:18px">Leitura mensal para o Marketing e leitura por fase a cada módulo lançado.</p>
+  </div>
+</section>
+
+<!-- 23 CRONOGRAMA -->
+<section class="frame dark" data-title="Cronograma">
+  <div class="wrap">
+    <div class="kicker reveal">Cronograma</div>
+    <h2 class="reveal d1">Do briefing aos dois lançamentos, no prazo.</h2>
+    <div class="tl">
+      <div class="tl-item reveal d1"><div class="when">Semanas 1 e 2</div><h3>Conceito final e identidade</h3><p>Ajustes, selo de aplicação, slogan, guia de linguagem e sistema de fases.</p></div>
+      <div class="tl-item reveal d2"><div class="when">Semana 3 · novembro de 2026</div><h3>Lançamento interno</h3><p>Teaser, all-hands, vídeo de 60 s, Desafio Concentre-se e kit interno no ar.</p></div>
+      <div class="tl-item reveal d3"><div class="when">Dezembro e janeiro</div><h3>Produção</h3><p>Vídeo-manifesto com o CEO, cortes, página do 360 e peças de mercado.</p></div>
+      <div class="tl-item reveal d4"><div class="when">Fevereiro de 2027 em diante</div><h3>Mercado e fases</h3><p>Manifesto, LinkedIn, YouTube, imprensa e clientes. Cada módulo novo, uma nova onda.</p></div>
+    </div>
+    <p class="small reveal d4" style="margin-top:30px">Semanas contadas a partir da aprovação. Datas intermediárias a confirmar com o Marketing do Mêntore.</p>
+  </div>
+</section>
+
+<!-- 24 INVESTIMENTO -->
+<section class="frame light" data-title="Investimento por entrega">
+  <div class="wrap">
+    <div class="kicker reveal">Investimento por entrega</div>
+    <h2 class="reveal d1">O que entregamos, quando e quanto.</h2>
+    <table class="reveal d2">
+      <thead><tr><th>Entrega</th><th>O que inclui</th><th>Prazo</th><th>Investimento</th></tr></thead>
+      <tbody>
+        <tr><td>Conceito e linguagem</td><td>Conceito, racional, tom de voz e guia de linguagem</td><td>Semanas 1 e 2</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Identidade do projeto</td><td>Selo de aplicação, paleta, slogan, templates e sistema de fases</td><td>Semanas 1 e 2</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Kit interno</td><td>Todas as peças internas do briefing e a dinâmica do lançamento</td><td>Semanas 2 e 3</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Vídeo-manifesto · criação</td><td>Roteiro, direção de arte e acompanhamento</td><td>Dezembro e janeiro</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Vídeo-manifesto · produção</td><td>Captação com o CEO, edição e finalização, cortes de 60, 30 e 15 s</td><td>Dezembro e janeiro</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Lançamento ao mercado</td><td>Página do 360, peças por cadeira, LinkedIn, YouTube e imprensa</td><td>Fevereiro de 2027</td><td class="money">R$ [__]</td></tr>
+        <tr><td>Mídia</td><td>Conforme o cenário escolhido: Essencial, Referência ou Liderança</td><td>Fevereiro de 2027 em diante</td><td class="money">R$ 6 mi a R$ 18 mi</td></tr>
+        <tr><td>Comunicação por fase</td><td>Uma onda de comunicação a cada módulo lançado</td><td>Mensal</td><td class="money">R$ [__] / mês</td></tr>
+      </tbody>
+    </table>
+    <p class="small reveal d3" style="margin-top:18px">A produção do vídeo varia conforme o roteiro aprovado e as diárias de captação.</p>
+  </div>
+</section>
+
+<!-- 25 POR QUE A CZM -->
+<section class="frame deep" data-title="Por que a CZM">
+  <div class="arcs tr" data-arcs style="opacity:.5"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Critérios de avaliação</div>
+    <h2 class="reveal d1">Como a proposta responde a cada critério.</h2>
+    <div class="why">
+      <div class="reveal d1"><h3>Aderência ao projeto e à intenção</h3><p>Concentrar é o efeito visível de uma plataforma única. A ideia diz o que o produto faz e o que o cliente ganha.</p></div>
+      <div class="reveal d2"><h3>Continuidade com a marca</h3><p>Guide 2026 v2 na íntegra. A assinatura permanece. O que muda é o raio da concentração.</p></div>
+      <div class="reveal d3"><h3>Clareza para explicar uma plataforma complexa</h3><p>Nove módulos explicados por um verbo. Cada fase concentra mais uma coisa.</p></div>
+      <div class="reveal d1"><h3>Força no interno e no mercado</h3><p>Uma missão para o time, uma permissão para o decisor. A mesma palavra nos dois lançamentos.</p></div>
+      <div class="reveal d2"><h3>Viabilidade de produção e prazo</h3><p>Kit interno em três semanas. Manifesto produzido em paralelo para fevereiro.</p></div>
+      <div class="reveal d3"><h3>Mais do que o briefing pede</h3><p>Plano multicanal, três cenários de mídia e um diagnóstico do canal atual já na proposta.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 26 ENCERRAMENTO -->
+<section class="frame dark" id="end" data-title="Encerramento">
+  <div class="glow" style="width:70vw;height:70vw;left:15vw;top:15vh;background:#00008b"></div>
+  <div class="arcs" data-arcs style="opacity:.6"></div>
+  <div class="wrap">
+    <div class="kicker reveal">Mêntore 360</div>
+    <h1 class="reveal d1">Concentre-se.</h1>
+    <p class="lead reveal d2" style="margin:20px auto 0">Mêntore. Sonhe e realize.</p>
+    <div class="czm-sig reveal d3"><i></i>CZM<i></i></div>
+    <p class="footer-note reveal d4">Proposta para a concorrência do Mêntore 360 · novembro de 2026 · [contato]</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
+  if (hasGsap) gsap.registerPlugin(ScrollTrigger);
+
+  /* arcs grafismo */
+  document.querySelectorAll('[data-arcs]').forEach(function(el){
+    var radii = [18,24,30,36,42,48];
+    var s = '<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">';
+    radii.forEach(function(r,i){ s += '<circle class="arc" cx="50" cy="50" r="'+r+'" style="opacity:'+(0.9-i*0.12)+'"/>'; });
+    s += '<circle cx="50" cy="50" r="1.1" fill="#008cff"/></svg>';
+    el.innerHTML = s;
+  });
+
+  /* progress + counter */
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.frame'));
+  var progress = document.getElementById('progress');
+  var counter = document.getElementById('counter');
+  function pad(n){ return (n<10?'0':'')+n; }
+  function onScroll(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max>0 ? (window.scrollY/max)*100 : 0) + '%';
+    var mid = window.scrollY + window.innerHeight*0.5, idx = 0;
+    for (var i=0;i<frames.length;i++){ if (frames[i].offsetTop <= mid) idx = i; }
+    counter.textContent = pad(idx+1) + ' / ' + pad(frames.length);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* reveal */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.18});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* hero convergence */
+  var frags = document.querySelectorAll('.frag');
+  var point = document.getElementById('point');
+  var heroTitle = document.getElementById('heroTitle');
+  frags.forEach(function(f){ f.style.left = f.dataset.x+'%'; f.style.top = f.dataset.y+'%'; });
+  if (hasGsap && !reduce){
+    var tl = gsap.timeline({scrollTrigger:{trigger:'#hero', start:'top top', end:'+=160%', scrub:1, pin:true, anticipatePin:1}});
+    frags.forEach(function(f){
+      var dx = 50 - parseFloat(f.dataset.x), dy = 46 - parseFloat(f.dataset.y);
+      tl.to(f, {xPercent: dx*2.0, yPercent: dy*4.5, scale:.35, opacity:0, ease:'power2.inOut', duration:1}, 0);
+    });
+    tl.to(point, {opacity:1, scale:1, duration:.5, ease:'power2.out'}, .55)
+      .to(point, {boxShadow:'0 0 0 40px rgba(0,140,255,.12), 0 0 120px rgba(0,140,255,.9)', duration:.5}, .9)
+      .to(heroTitle, {opacity:1, y:0, duration:.6, ease:'power2.out'}, 1.0)
+      .to('.scroll-hint', {opacity:0, duration:.3}, .3);
+  } else {
+    frags.forEach(function(f){ f.style.opacity = .35; }); document.querySelector('.scroll-hint').style.display='none';
+    point.style.opacity = 1; point.style.transform = 'translate(-50%,-50%) scale(1)';
+    heroTitle.style.opacity = 1; heroTitle.style.transform = 'none';
+  }
+
+  /* concept toggle */
+  var sides = document.querySelectorAll('.side');
+  sides.forEach(function(s){
+    function act(){ sides.forEach(function(o){ o.classList.remove('active'); o.setAttribute('aria-pressed','false'); }); s.classList.add('active'); s.setAttribute('aria-pressed','true'); }
+    s.addEventListener('click', act);
+    s.addEventListener('keydown', function(e){ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); act(); } });
+  });
+
+  /* manifesto lines */
+  var lines = document.querySelectorAll('#manifesto p');
+  var lio = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ e.target.classList.toggle('on', e.isIntersecting); });
+  }, {rootMargin:'-35% 0px -35% 0px'});
+  lines.forEach(function(l){ lio.observe(l); });
+
+  /* language rows */
+  document.querySelectorAll('.lang-row').forEach(function(r){
+    function t(){ r.classList.toggle('open'); }
+    r.addEventListener('click', t);
+    r.addEventListener('keydown', function(e){ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); t(); } });
+  });
+
+  /* ring of modules */
+  var ringSvg = document.getElementById('ringSvg');
+  var N = 9, cx=160, cy=160, R=130, gap=7;
+  var segs = [];
+  function pol(a){ var r=(a-90)*Math.PI/180; return [cx+R*Math.cos(r), cy+R*Math.sin(r)]; }
+  var ns='http://www.w3.org/2000/svg';
+  for (var i=0;i<N;i++){
+    var a0 = i*(360/N)+gap/2, a1=(i+1)*(360/N)-gap/2;
+    var p0=pol(a0), p1=pol(a1);
+    var path=document.createElementNS(ns,'path');
+    path.setAttribute('d','M'+p0[0]+' '+p0[1]+' A'+R+' '+R+' 0 0 1 '+p1[0]+' '+p1[1]);
+    path.setAttribute('class','seg'+(i===5?' on':''));
+    path.dataset.i=i;
+    ringSvg.appendChild(path); segs.push(path);
+  }
+  var t1=document.createElementNS(ns,'text'); t1.setAttribute('x',cx); t1.setAttribute('y',cy+14); t1.textContent='360'; ringSvg.appendChild(t1);
+  var t2=document.createElementNS(ns,'text'); t2.setAttribute('x',cx); t2.setAttribute('y',cy+50); t2.setAttribute('class','cnt'); ringSvg.appendChild(t2);
+  var dot=document.createElementNS(ns,'circle'); dot.setAttribute('cx',cx+R*Math.cos(-20*Math.PI/180)); dot.setAttribute('cy',cy+R*Math.sin(-20*Math.PI/180)); dot.setAttribute('r','7'); dot.setAttribute('fill','#008cff'); ringSvg.appendChild(dot);
+  var mods = document.querySelectorAll('.mod');
+  function syncRing(){
+    var on = 0;
+    segs.forEach(function(s,i){ var o = s.classList.contains('on'); mods[i].classList.toggle('on', o); if(o) on++; });
+    t2.textContent = on + ' de 9 concentrados';
+    document.querySelectorAll('[data-ring]').forEach(function(b){ b.classList.toggle('active', parseInt(b.dataset.ring,10)===on); });
+  }
+  function toggle(i){ segs[i].classList.toggle('on'); syncRing(); }
+  segs.forEach(function(s,i){ s.addEventListener('click', function(){ toggle(i); }); s.addEventListener('mouseenter', function(){ mods[i].classList.add('on-hover'); s.classList.add('hover'); }); s.addEventListener('mouseleave', function(){ s.classList.remove('hover'); }); });
+  mods.forEach(function(m,i){ m.addEventListener('click', function(){ toggle(i); }); });
+  document.querySelectorAll('[data-ring]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var n = parseInt(b.dataset.ring,10);
+      var order = [5,3,1,0,2,4,6,7,8];
+      segs.forEach(function(s){ s.classList.remove('on'); });
+      order.slice(0,n).forEach(function(i,k){ setTimeout(function(){ segs[i].classList.add('on'); syncRing(); }, reduce?0:k*110); });
+      syncRing();
+    });
+  });
+  syncRing();
+
+  /* video strip */
+  var strip = document.getElementById('strip'), pin = document.getElementById('stripPin');
+  if (hasGsap && !reduce){
+    var dist = function(){ return strip.scrollWidth - window.innerWidth + window.innerWidth*0.07; };
+    gsap.to(strip, {x: function(){ return -dist(); }, ease:'none',
+      scrollTrigger:{trigger:'#video', start:'top top', end: function(){ return '+=' + (dist()+400); }, scrub:1, pin:true, invalidateOnRefresh:true}});
+  } else {
+    strip.style.overflowX='auto'; strip.style.willChange='auto';
+  }
+
+  /* OSEP hub */
+  var channels = [
+    {k:'Owned', n:'Página do 360', d:['A plataforma explicada pelo que concentra, módulo a módulo.','Uma dor por cadeira: CEO, CFO, RH, gestor de contrato.','Pedido de demonstração em um passo.']},
+    {k:'Owned', n:'LinkedIn Mêntore', d:['Manifesto, cortes e séries por decisor.','Cada módulo lançado vira uma onda de posts.','Depoimentos de clientes atuais.']},
+    {k:'Owned', n:'Instagram', d:['Continua o canal do trabalhador e do RH.','Comentários abertos, collabs como padrão, séries com nome próprio.','Recebe o 360 pelo lado do benefício, não do sistema.']},
+    {k:'Shared', n:'CEO e lideranças', d:['O CEO como porta-voz da nova categoria no LinkedIn.','Lideranças compartilham o que o 360 concentra na área delas.','Kit de posts para o time, pronto no lançamento interno.']},
+    {k:'Shared', n:'Clientes e parceiros', d:['Clientes atuais conhecem o 360 antes do mercado.','Collabs com parceiros e palestrantes, a alavanca que mais rende hoje.','Depoimentos gravados viram peças.']},
+    {k:'Earned', n:'Imprensa', d:['Entrevistas do CEO: o fim da gestão em pedaços.','Pauta de categoria: da solução de pagamento à plataforma de gestão.','Rankings e cadernos de RH e finanças.']},
+    {k:'Earned', n:'Eventos do setor', d:['CONARH e encontros de CFO e RH em 2027.','Palestra do CEO com o manifesto e o Desafio Concentre-se.','Collab com palestrantes, replicando o que já funciona no Instagram.']},
+    {k:'Paid', n:'LinkedIn Ads', d:['Segmentação por cargo, porte e setor: CEO, CFO, RH e gestores de grandes operações.','Vídeo do manifesto, documentos por cadeira e geração de demonstração.','Maior fatia da verba em todos os cenários.']},
+    {k:'Paid', n:'YouTube', d:['Manifesto completo e cortes de 15 e 30 s para decisores.','Sequência: quem viu 60 s recebe a dor da sua cadeira.','Bumpers nas fases, anunciando cada módulo.']},
+    {k:'Paid', n:'Programática e search', d:['Portais de negócios e finanças, com filtros de brand safety.','Search para quem já procura folha, benefícios ou gestão integrada.','Remarketing de quem viu o manifesto.']}
+  ];
+  var hub = document.getElementById('hub'), info = document.getElementById('hubInfo');
+  var HC=260, HR=200;
+  var defs = document.createElementNS(ns,'defs'); defs.innerHTML='<radialGradient id="hg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#008cff"/><stop offset="1" stop-color="#008cff" stop-opacity="0"/></radialGradient>'; hub.appendChild(defs);
+  channels.forEach(function(c,i){
+    var a=(i/channels.length)*Math.PI*2 - Math.PI/2, x=HC+HR*Math.cos(a), y=HC+HR*Math.sin(a);
+    var l=document.createElementNS(ns,'line'); l.setAttribute('x1',HC); l.setAttribute('y1',HC); l.setAttribute('x2',x); l.setAttribute('y2',y); l.setAttribute('class','spoke'); hub.appendChild(l);
+  });
+  var halo=document.createElementNS(ns,'circle'); halo.setAttribute('cx',HC); halo.setAttribute('cy',HC); halo.setAttribute('r','70'); halo.setAttribute('fill','url(#hg)'); halo.setAttribute('opacity','.5'); hub.appendChild(halo);
+  var core=document.createElementNS(ns,'circle'); core.setAttribute('cx',HC); core.setAttribute('cy',HC); core.setAttribute('r','30'); core.setAttribute('class','core'); hub.appendChild(core);
+  var ct=document.createElementNS(ns,'text'); ct.setAttribute('x',HC); ct.setAttribute('y',HC+6); ct.textContent='360'; ct.setAttribute('style','fill:#fff;font-weight:700;font-size:17px'); hub.appendChild(ct);
+  var nodes=[];
+  channels.forEach(function(c,i){
+    var a=(i/channels.length)*Math.PI*2 - Math.PI/2, x=HC+HR*Math.cos(a), y=HC+HR*Math.sin(a);
+    var g=document.createElementNS(ns,'g'); g.setAttribute('tabindex','0'); g.setAttribute('role','button');
+    var r=document.createElementNS(ns,'rect'); r.setAttribute('x',x-78); r.setAttribute('y',y-20); r.setAttribute('width',156); r.setAttribute('height',40); r.setAttribute('rx',20); r.setAttribute('class','node');
+    var t=document.createElementNS(ns,'text'); t.setAttribute('x',x); t.setAttribute('y',y+5); t.textContent=c.n;
+    var tag=document.createElementNS(ns,'text'); tag.setAttribute('x',x); tag.setAttribute('y',y-26); tag.textContent=c.k; tag.setAttribute('style','font-size:11px;fill:#008cff');
+    g.appendChild(r); g.appendChild(t); g.appendChild(tag); hub.appendChild(g); nodes.push(r);
+    function show(){ nodes.forEach(function(n){ n.classList.remove('on'); }); r.classList.add('on');
+      info.innerHTML='<div class="k">'+c.k+'</div><h3>'+c.n+'</h3><ul>'+c.d.map(function(d){ return '<li>'+d+'</li>'; }).join('')+'</ul>'; }
+    g.addEventListener('click', show); g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(); } });
+  });
+
+  /* media scenarios */
+  var scen = [
+    {v:'R$ 6 mi', l:'Essencial · o mínimo para lançar com presença', d:'Cobertura dos decisores no LinkedIn e no YouTube, página do 360 e search. Sem imprensa paga nem programática. Uma onda forte em fevereiro e sustentação leve nas fases.',
+     bars:[['LinkedIn Ads',45],['YouTube',25],['Search',12],['Programática',0],['Meta (remarketing)',8],['Imprensa e conteúdo patrocinado',0],['Eventos',10]],
+     buys:[['Alcance','Decisores das grandes operações no LinkedIn, com frequência de 3 a 4 contatos no lançamento.'],['Fases','Duas ondas em 2027, concentradas nos módulos de maior apelo comercial.'],['Conversa','Demonstrações geradas por LinkedIn e search; sem remarketing em portais.']]},
+    {v:'R$ 10 mi', l:'Referência · o patamar da campanha anterior', d:'A arquitetura completa: LinkedIn e YouTube como base, programática em portais de negócios, search, imprensa de negócios e presença em eventos. Uma onda por módulo ao longo de 2027.',
+     bars:[['LinkedIn Ads',35],['YouTube',20],['Search',8],['Programática',12],['Meta (remarketing)',5],['Imprensa e conteúdo patrocinado',12],['Eventos',8]],
+     buys:[['Alcance','Decisores com frequência de 5 a 6 contatos no lançamento, mais cobertura em portais de negócios.'],['Fases','Uma onda a cada módulo lançado, com bumpers e conteúdo por cadeira.'],['Conversa','Remarketing completo e sequência de vídeo: quem viu o manifesto recebe a dor da sua cadeira.']]},
+    {v:'R$ 18 mi', l:'Liderança · dono da categoria em 2027', d:'Tudo do cenário Referência, com presença contínua o ano inteiro, patrocínio de eventos de CFO e RH, conteúdo editorial com a imprensa de negócios e mídia programática premium. O Mêntore passa a ser a referência de gestão concentrada.',
+     bars:[['LinkedIn Ads',30],['YouTube',18],['Search',7],['Programática',15],['Meta (remarketing)',5],['Imprensa e conteúdo patrocinado',15],['Eventos',10]],
+     buys:[['Alcance','Presença sempre ligada para decisores, com reforço a cada fase e cobertura nacional nos portais de negócios.'],['Fases','Nove ondas, uma por módulo, mais a campanha de categoria no fim do ano.'],['Conversa','Patrocínio de eventos com demonstração ao vivo e encontros exclusivos para CEOs e CFOs.']]}
+  ];
+  var bars=document.getElementById('bars'), buys=document.getElementById('buys');
+  function renderScen(i){
+    var s=scen[i];
+    document.getElementById('scenValue').textContent=s.v; document.getElementById('scenLabel').textContent=s.l; document.getElementById('scenDesc').textContent=s.d;
+    bars.innerHTML=s.bars.map(function(b){ return '<div class="bar"><span>'+b[0]+'</span><div class="track"><div class="fill" data-w="'+b[1]+'"></div></div><span class="v">'+b[1]+'%</span></div>'; }).join('');
+    buys.innerHTML=s.buys.map(function(b){ return '<div class="buy"><b>'+b[0]+'</b><span>'+b[1]+'</span></div>'; }).join('');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ bars.querySelectorAll('.fill').forEach(function(f){ f.style.width=f.dataset.w+'%'; }); }); });
+    document.querySelectorAll('#tabs .btn').forEach(function(b){ b.classList.toggle('active', parseInt(b.dataset.s,10)===i); });
+  }
+  document.querySelectorAll('#tabs .btn').forEach(function(b){ b.addEventListener('click', function(){ renderScen(parseInt(b.dataset.s,10)); }); });
+  renderScen(1);
+
+  if (hasGsap) { window.addEventListener('load', function(){ ScrollTrigger.refresh(); }); }
+})();
+</script>
+</body>
+</html>
