@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Concentre-se · Proposta CZM para o Mêntore 360</title>
+<title>Concentre e realize · Proposta CZM para o Mêntore 360</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -338,12 +338,35 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
 .czm-sig{display:inline-flex;align-items:center;gap:14px;margin-top:60px;font-weight:700;letter-spacing:.3em;font-size:18px}
 .czm-sig i{width:10px;height:10px;border-radius:50%;background:var(--sky);display:inline-block}
 .footer-note{margin-top:28px;font-size:13px;color:var(--muted-on-dark)}
+
+/* concept extension, territory */
+.rot{display:inline-block;color:#8ec4ff;transition:opacity .35s,transform .35s}
+.rot.out{opacity:0;transform:translateY(12px)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.chip{font:inherit;font-weight:500;font-size:15px;padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;cursor:pointer;transition:background .3s,color .3s}
+.chip:hover,.chip.active{background:#fff;color:var(--royal)}
+.terr{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:36px}
+@media (max-width:900px){.terr{grid-template-columns:1fr}}
+.terr-h{font-weight:700;color:var(--royal);font-size:15px;margin-bottom:12px}
+.terr ul{list-style:none;display:grid;gap:8px}
+.terr li{padding-left:18px;position:relative;color:var(--muted-on-light)}
+.terr li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--sky)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{padding:7px 14px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,139,.18);color:var(--royal);font-weight:500;font-size:15px}
+.avoid{padding:24px;border-radius:16px;background:#fff;border:1px solid rgba(5,12,38,.1)}
+.avoid p{color:var(--muted-on-light);font-size:15px;margin-top:10px}
+.avoid b{color:var(--navy)}
+.applied{display:grid;gap:10px;margin-top:16px}
+.applied div{padding:16px 18px;border-radius:14px;background:var(--navy);color:#fff;font-size:17px;font-weight:300;line-height:1.35;opacity:0;transform:translateY(8px);animation:ap .5s forwards}
+.applied div small{display:block;font-size:12px;font-weight:500;color:var(--sky);margin-bottom:6px}
+@keyframes ap{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.applied div{animation:none;opacity:1;transform:none}.rot{transition:none}}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="topbar"><span>Mêntore 360 · Proposta para a concorrência</span><span class="czm">CZM</span></div>
-<div class="frame-count" id="counter">01 / 26</div>
+<div class="frame-count" id="counter">01 / 28</div>
 
 <svg width="0" height="0" style="position:absolute">
   <defs>
@@ -373,7 +396,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <div class="point" id="point"></div>
     <div class="hero-title" id="heroTitle">
       <div class="kicker">Proposta CZM para o lançamento do Mêntore 360</div>
-      <h1>Concentre-se.</h1>
+      <h1>Concentre e realize.</h1>
       <p class="lead">Conceito criativo, identidade do projeto, vídeo-manifesto e um plano multicanal para o lançamento interno em novembro de 2026 e para o mercado em fevereiro de 2027.</p>
       <div class="hero-meta"><span>5 de novembro de 2026</span><span>Confidencial · uso exclusivo do Marketing do Mêntore</span></div>
     </div>
@@ -444,23 +467,36 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   <div class="arcs" data-arcs style="opacity:.5"></div>
   <div class="wrap">
     <div class="kicker reveal">O conceito</div>
-    <h1 class="reveal d1" style="font-size:clamp(64px,13vw,190px)">Concentre-se.</h1>
-    <p class="lead reveal d2">Uma palavra com dois lados. O Mêntore concentra a empresa. O gestor concentra a atenção. Quanto mais o Mêntore concentra, menos coisas você precisa ter na cabeça.</p>
+    <h1 class="reveal d1" style="font-size:clamp(56px,10.5vw,160px)">Concentre<br>e realize.</h1>
+    <p class="lead reveal d2">O conceito nasce dentro da assinatura que o Mêntore já tem. “Sonhe e realize” sempre foi a promessa da marca. No 360, o caminho até a realização passa a ter nome: concentrar. O Mêntore concentra a gestão. O gestor concentra a atenção. E realiza.</p>
     <div class="concept reveal d3">
       <div class="side active" data-side="a" tabindex="0" role="button" aria-pressed="true">
-        <h3>A gente concentra.</h3>
+        <h3>O Mêntore 360 concentra.</h3>
         <p>Pessoas, processos, finanças e informações numa única plataforma. Da primeira contratação ao último número do balanço.</p>
       </div>
       <div class="pivot" aria-hidden="true"></div>
       <div class="side" data-side="b" tabindex="0" role="button" aria-pressed="false">
-        <h3>Você se concentra.</h3>
-        <p>Na próxima ideia. Na próxima conquista. No próximo sonho. Sua empresa precisa de toda a sua atenção, não de toda a sua preocupação.</p>
+        <h3>Você realiza.</h3>
+        <p>Na próxima ideia. No próximo passo. Na próxima conquista. Sua empresa precisa de toda a sua atenção, não de toda a sua preocupação.</p>
       </div>
     </div>
     <div class="meanings reveal d4">
-      <div class="meaning"><b>Concentração de sistemas</b><span>Tudo em um só lugar.</span></div>
-      <div class="meaning"><b>Concentração de informações</b><span>Tudo o que importa fica visível.</span></div>
-      <div class="meaning"><b>Concentração de atenção</b><span>A cabeça do empresário livre para pensar no futuro. É o lado mais forte: transforma uma funcionalidade em um benefício humano.</span></div>
+      <div class="meaning"><b>Concentrar a gestão</b><span>Tudo no mesmo lugar, conversando entre si.</span></div>
+      <div class="meaning"><b>Concentrar a atenção</b><span>A cabeça livre da operação, voltada para o que vem a seguir.</span></div>
+      <div class="meaning"><b>Realizar</b><span>O verbo que a marca já tem. Agora com um método: primeiro concentra, depois realiza.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06b CONCENTRE E REALIZE ___ -->
+<section class="frame royal" data-title="Concentre e realize">
+  <div class="glow" style="width:60vw;height:60vw;left:-15vw;top:-10vh;background:#008cff;opacity:.3"></div>
+  <div class="wrap">
+    <div class="kicker reveal" style="color:#8ec4ff">Um conceito que se completa</div>
+    <p class="statement reveal d1" style="max-width:none">Concentre e realize<br><span class="b rot" id="rot">sonhos.</span></p>
+    <p class="lead reveal d2" style="color:rgba(255,255,255,.78)">A frase aceita complemento. Cada público, cada fase e cada módulo pode terminar a frase do seu jeito, sem que o conceito mude.</p>
+    <div class="chips reveal d3" id="chips">
+      <button class="chip" data-w="sonhos.">sonhos</button><button class="chip" data-w="negócios.">negócios</button><button class="chip" data-w="planos.">planos</button><button class="chip" data-w="conquistas.">conquistas</button><button class="chip" data-w="metas.">metas</button>
     </div>
   </div>
 </section>
@@ -471,18 +507,19 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   <div class="wrap">
     <div class="kicker">Manifesto</div>
     <div class="manifesto" id="manifesto">
-      <p class="b">Concentre-se.</p>
       <p>Você abriu uma empresa para cuidar de quantas empresas?</p>
-      <p>Uma? Engraçado. Porque tem dia que parece que você administra dez.</p>
+      <p>Uma?</p>
+      <p>Engraçado. Porque tem dias que parece que você administra dez.</p>
       <p>Uma no RH. Outra no financeiro. Outra na contabilidade. Outra no banco. Outra na folha de pagamento.</p>
       <p>Cada uma com seus números, suas informações, seus problemas. E você no meio de todas elas.</p>
-      <p>Tentando juntar as peças de uma empresa que nunca deveria ter sido dividida.</p>
+      <p>Tentando juntar as peças de uma gestão que nunca deveria ter sido dividida.</p>
       <p class="b">Chega de administrar pedaços.</p>
       <p>O Mêntore 360 reúne pessoas, processos, finanças e informações em uma única plataforma. Da primeira contratação ao último número do balanço.</p>
       <p>Tudo conversa. Tudo se conecta. Tudo faz sentido.</p>
-      <p>Porque quando a empresa inteira está no mesmo lugar, a sua cabeça pode estar em outro. Na próxima ideia. Na próxima conquista. No próximo sonho.</p>
-      <p class="b">A gente concentra tudo. Para você se concentrar no que importa.</p>
-      <p class="sig">Mêntore 360. Concentre-se.<br>Mêntore. Sonhe e realize.</p>
+      <p>Porque quando a empresa inteira está no mesmo lugar, a sua cabeça pode estar em outro.</p>
+      <p>Na próxima ideia. No próximo passo. Na próxima conquista.</p>
+      <p class="b">O Mêntore 360 concentra tudo. Para você se concentrar no que importa.</p>
+      <p class="sig">Mêntore 360.<br>Concentre e realize.</p>
     </div>
   </div>
 </section>
@@ -493,10 +530,10 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <div class="kicker reveal">Racional estratégico</div>
     <h2 class="reveal d1">As quatro perguntas, respondidas.</h2>
     <div class="answers">
-      <div class="answer reveal d1"><div class="q">Uma ideia simples</div><h3>Concentrar.</h3><p>Em vez de explicar nove módulos, dizemos o que a plataforma faz pela empresa: concentra. E o que faz pelo gestor: devolve a atenção. Uma palavra, fácil de dizer, entender e repetir.</p></div>
-      <div class="answer reveal d2"><div class="q">Evolução sem ruptura</div><h3>O Mêntore sempre foi concentração.</h3><p>Concentrou o pagamento, o salário e o crédito num só lugar para o trabalhador. Agora concentra a empresa inteira para quem decide. Mesma marca, mesma assinatura, raio maior.</p></div>
-      <div class="answer reveal d3"><div class="q">Do interno ao mercado</div><h3>Primeiro o time se concentra. Depois o mercado.</h3><p>Para o time Mêntore, Concentre-se é uma missão: entender, defender e vender uma coisa só. Para o mercado, é uma permissão: pode focar, a gente cuida do resto.</p></div>
-      <div class="answer reveal d4"><div class="q">Uma plataforma em fases</div><h3>Cada módulo concentra mais uma coisa.</h3><p>A campanha cresce com a plataforma. Cada lançamento anuncia o que passou a estar concentrado: a vaga, a admissão, a folha, a conciliação, o balanço.</p></div>
+      <div class="answer reveal d1"><div class="q">Uma ideia simples</div><h3>Concentrar para realizar.</h3><p>Em vez de explicar nove módulos, dizemos o que a plataforma faz pela empresa: concentra. E o que isso devolve ao gestor: a chance de realizar. Duas palavras, fáceis de dizer e de repetir.</p></div>
+      <div class="answer reveal d2"><div class="q">Evolução sem ruptura</div><h3>A assinatura já estava lá.</h3><p>“Sonhe e realize” vira “Concentre e realize”. O verbo que a marca construiu continua, e ganha um método. Ninguém precisa reaprender o Mêntore.</p></div>
+      <div class="answer reveal d3"><div class="q">Do interno ao mercado</div><h3>Primeiro o time se concentra. Depois o mercado.</h3><p>Para o time Mêntore, é uma missão: entender, defender e vender uma coisa só, enquanto ela é construída. Para o mercado, é uma promessa: a gente concentra, você realiza.</p></div>
+      <div class="answer reveal d4"><div class="q">Uma plataforma em fases</div><h3>Cada módulo concentra mais uma coisa.</h3><p>A campanha cresce com a plataforma. Cada lançamento completa a frase: concentre e realize a vaga, a folha, a conciliação, o balanço.</p></div>
     </div>
   </div>
 </section>
@@ -505,34 +542,67 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
 <section class="frame dark" data-title="Sistema de frases">
   <div class="wrap">
     <div class="kicker reveal">Sistema de frases</div>
-    <h2 class="reveal d1">Um conceito, uma assinatura de projeto, uma marca preservada.</h2>
+    <h2 class="reveal d1">Um conceito, muitas portas de entrada.</h2>
     <div class="phrases">
-      <div class="phrase reveal d1"><span>Conceito</span><b class="strong">Concentre-se.</b></div>
-      <div class="phrase reveal d2"><span>Assinatura do projeto</span><b>Mêntore 360. Concentre-se.</b></div>
-      <div class="phrase reveal d3"><span>Linha de apoio</span><b>A gente concentra tudo. Para você se concentrar no que importa.</b></div>
-      <div class="phrase reveal d4"><span>Promessa para o mercado</span><b>Sua empresa precisa de toda a sua atenção. Não de toda a sua preocupação.</b></div>
-      <div class="phrase reveal d4"><span>Assinatura da marca, preservada</span><b>Mêntore. Sonhe e realize.</b></div>
+      <div class="phrase reveal d1"><span>Assinatura do projeto</span><b class="strong">Mêntore 360. Concentre e realize.</b></div>
+      <div class="phrase reveal d2"><span>Promessa</span><b>Sua empresa precisa de toda a sua atenção. Não de toda a sua preocupação.</b></div>
+      <div class="phrase reveal d2"><span>Benefício</span><b>O que antes dividia sua atenção agora vai multiplicar seus resultados.</b></div>
+      <div class="phrase reveal d3"><span>Visão</span><b>Para enxergar longe, é preciso antes enxergar por inteiro.</b></div>
+      <div class="phrase reveal d3"><span>Para o CEO</span><b>Você não precisa estar em todos os lugares. Precisa saber que tudo está no lugar.</b></div>
+      <div class="phrase reveal d4"><span>Para o gestor</span><b>Menos tempo procurando informações. Mais tempo pra encontrar oportunidades.</b></div>
+      <div class="phrase reveal d4"><span>Tecnologia em silêncio</span><b>A tecnologia cuida dos processos. Você cuida das conquistas.</b></div>
+      <div class="phrase reveal d4"><span>Expansão</span><b>Quando a gestão se concentra, as oportunidades se expandem.</b></div>
     </div>
-    <p class="small reveal d4" style="margin-top:28px">“Sonhe e realize” ganha um sentido novo: quem se concentra sonha com mais clareza e realiza com mais rapidez.</p>
+    <p class="small reveal d4" style="margin-top:28px">A assinatura institucional segue a mesma: Mêntore. Sonhe e realize. “Concentre e realize” é a assinatura do 360 e mora ao lado dela, sem substituir o lockup.</p>
   </div>
 </section>
 
-<!-- 10 TOM E LINGUAGEM -->
-<section class="frame light" data-title="Tom de voz">
+<!-- 10 TERRITÓRIO DE LINGUAGEM -->
+<section class="frame light" data-title="Território de linguagem">
   <div class="wrap">
-    <div class="kicker reveal">Tom de voz e território de linguagem</div>
-    <h2 class="reveal d1">Falar do que a atenção ganha, não do sistema.</h2>
-    <p class="lead reveal d2">Confiança sem exagero. Simplicidade sem jargão. O efeito, nunca a ferramenta. Passe o mouse ou toque em cada linha para ver a tradução.</p>
-    <div class="lang reveal d3">
-      <div class="lang-row" tabindex="0"><div class="from">Plataforma integrada de gestão empresarial</div><div class="arrow">→</div><div class="to">A empresa inteira concentrada num só lugar.</div></div>
-      <div class="lang-row" tabindex="0"><div class="from">Admissão digital com abertura automática de conta</div><div class="arrow">→</div><div class="to">Contratou de manhã. À tarde, a conta já existe. Você nem precisou pensar nisso.</div></div>
-      <div class="lang-row" tabindex="0"><div class="from">Conciliação bancária automática</div><div class="arrow">→</div><div class="to">O dinheiro entrou e a conciliação já aconteceu. Concentre-se no que vem depois.</div></div>
-      <div class="lang-row" tabindex="0"><div class="from">Dashboards em tempo real</div><div class="arrow">→</div><div class="to">Todo mundo olhando para o mesmo número. A reunião deixa de ser sobre o dado e passa a ser sobre o que fazer com ele.</div></div>
-      <div class="lang-row" tabindex="0"><div class="from">Módulo contábil com geração de DRE</div><div class="arrow">→</div><div class="to">A DRE não espera o dia 30. Sua atenção também não.</div></div>
+    <div class="kicker reveal">Território de linguagem</div>
+    <h2 class="reveal d1">Sobre o que o 360 fala, e com quais palavras.</h2>
+    <p class="lead reveal d2">O território parte do manifesto do CEO e ocupa um único universo: a evolução do Mêntore para uma plataforma completa de gestão. Fala de reunir, conectar e enxergar por inteiro. E, no lançamento interno, fala no gerúndio: o 360 está sendo construído e vem aí.</p>
+    <div class="terr reveal d3">
+      <div class="terr-col"><div class="terr-h">Temas que ocupamos</div>
+        <ul><li>A gestão inteira num só lugar</li><li>Atenção livre para decidir</li><li>Da vaga ao balanço</li><li>Evolução do Mêntore, do dia do pagamento a todos os dias</li><li>Construção em fases, com o time junto</li></ul></div>
+      <div class="terr-col"><div class="terr-h">Palavras-chave</div>
+        <div class="tags"><span>concentrar</span><span>realizar</span><span>reunir</span><span>conectar</span><span>por inteiro</span><span>mesmo lugar</span><span>gestão</span><span>atenção</span><span>enxergar</span><span>próximo passo</span><span>conquista</span><span>construir</span></div></div>
+      <div class="terr-col"><div class="terr-h">Expressões-chave</div>
+        <ul><li>Concentre e realize</li><li>Chega de administrar pedaços</li><li>Da vaga ao balanço</li><li>Tudo conversa, tudo se conecta</li><li>Estamos construindo</li><li>Vem aí</li></ul></div>
     </div>
-    <div class="grid g2" style="margin-top:36px">
-      <div class="rule reveal d1"><b>Perseguir:</b> evolução sem ruptura, confiança, simplicidade, pessoas no centro.</div>
-      <div class="rule reveal d2"><b>Evitar:</b> posicionar como banco, jargão de sistemas, prometer todos os módulos de uma vez, tecnologia pela tecnologia.</div>
+    <div class="grid g2" style="margin-top:34px">
+      <div class="avoid reveal d2"><div class="terr-h">O que fica de fora</div>
+        <p><b>Vocabulário de banco:</b> agência, correntista, banco digital, tarifas, taxas, juros, rendimento. O Mêntore Banking aparece como frente da plataforma, nunca como identidade.</p>
+        <p><b>Jargão de sistemas:</b> integração, API, ERP, solução robusta, all-in-one, tecnologia de ponta.</p>
+        <p><b>Linguagem de produto pronto, na fase interna:</b> já disponível, completa, tudo pronto, lançamos.</p>
+        <p><b>Cobrança:</b> nada de “foque”, “preste atenção” ou “você precisa”. Concentrar é o que o Mêntore faz por você.</p>
+      </div>
+      <div class="reveal d3"><div class="terr-h">Frases aplicadas, para sentir como soa</div>
+        <div class="tabs" id="phaseTabs" style="margin-top:12px"><button class="btn active" data-p="0">Interno · em construção</button><button class="btn" data-p="1">Mercado · fevereiro</button></div>
+        <div class="applied" id="applied"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10b TOM DE VOZ -->
+<section class="frame white" data-title="Tom de voz">
+  <div class="wrap">
+    <div class="kicker reveal">Tom de voz</div>
+    <h2 class="reveal d1">O território diz o quê. O tom diz como.</h2>
+    <p class="lead reveal d2">Próximo, seguro e inspirador na medida. Fala como um parceiro que entende de gestão, não como um sistema. Mostra o efeito, nunca a ferramenta. Passe o mouse ou toque em cada linha para ver a tradução.</p>
+    <div class="lang reveal d3">
+      <div class="lang-row" tabindex="0"><div class="from">Plataforma integrada de gestão empresarial</div><div class="arrow">→</div><div class="to">A empresa inteira no mesmo lugar.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Admissão digital com abertura automática de conta</div><div class="arrow">→</div><div class="to">Contratou de manhã. À tarde, tudo já está no lugar.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Conciliação automática das movimentações</div><div class="arrow">→</div><div class="to">Menos tempo procurando informações. Mais tempo pra encontrar oportunidades.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Dashboards gerenciais em tempo real</div><div class="arrow">→</div><div class="to">Para enxergar longe, é preciso antes enxergar por inteiro.</div></div>
+      <div class="lang-row" tabindex="0"><div class="from">Automação de processos operacionais</div><div class="arrow">→</div><div class="to">A tecnologia cuida dos processos. Você cuida das conquistas.</div></div>
+    </div>
+    <div class="grid g3" style="margin-top:36px">
+      <div class="rule reveal d1"><b>Próximo.</b> Fala com a pessoa, não com o cargo. “Você”, nunca “o cliente”.</div>
+      <div class="rule reveal d2"><b>Seguro.</b> Frases curtas e afirmativas. Confiança, dados protegidos e processos auditáveis, sem exagero.</div>
+      <div class="rule reveal d3"><b>Inspirador na medida.</b> Fala de conquistas e próximos passos, sempre com os pés na operação real.</div>
     </div>
   </div>
 </section>
@@ -591,9 +661,9 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
       <div class="sw" style="background:#e8eefb;color:#050c26"><b>Ice</b>#e8eefb · fundos claros</div>
     </div>
     <div class="type-sample reveal d4">
-      <div><span>Urbanist Light</span><div class="l">Concentre-se no que importa.</div></div>
+      <div><span>Urbanist Light</span><div class="l">Concentre e realize.</div></div>
       <div><span>Urbanist Regular</span><div class="r">Da vaga ao balanço.</div></div>
-      <div><span>Urbanist Bold</span><div class="bb">Mêntore 360. Concentre-se.</div></div>
+      <div><span>Urbanist Bold</span><div class="bb">Mêntore 360. Concentre e realize.</div></div>
     </div>
   </div>
 </section>
@@ -632,24 +702,24 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <div class="apps">
       <div class="mock banner reveal d1">
         <svg class="mk-arcs" viewBox="0 0 600 300" preserveAspectRatio="none"><g fill="none" stroke="#008cff" stroke-width="1.2"><circle cx="560" cy="40" r="120" stroke-opacity=".5"/><circle cx="560" cy="40" r="170" stroke-opacity=".3"/><circle cx="560" cy="40" r="220" stroke-opacity=".18"/><circle cx="560" cy="40" r="270" stroke-opacity=".1"/></g><circle cx="560" cy="40" r="7" fill="#008cff"/></svg>
-        <div class="mk-in"><h3>Concentre-se.</h3><p style="margin:14px 0 20px;color:rgba(232,238,251,.75)">A gente concentra tudo. Para você se concentrar no que importa.</p><div class="lk">mêntore<span class="bar"></span><span class="n">360</span></div><div class="small" style="margin-top:8px;color:rgba(232,238,251,.6)">Banner da sede · lançamento interno</div></div>
+        <div class="mk-in"><h3>Concentre e realize.</h3><p style="margin:14px 0 20px;color:rgba(232,238,251,.75)">Estamos construindo o lugar onde a empresa inteira vai se concentrar.</p><div class="lk">mêntore<span class="bar"></span><span class="n">360</span></div><div class="small" style="margin-top:8px;color:rgba(232,238,251,.6)">Banner da sede · lançamento interno</div></div>
       </div>
       <div style="display:grid;gap:22px">
         <div class="mock teams reveal d2">
           <svg class="mk-arcs" viewBox="0 0 600 220" preserveAspectRatio="none"><g fill="none" stroke="#008cff" stroke-width="1.2"><circle cx="40" cy="200" r="120" stroke-opacity=".4"/><circle cx="40" cy="200" r="180" stroke-opacity=".22"/><circle cx="40" cy="200" r="240" stroke-opacity=".12"/></g></svg>
-          <div class="mk-in"><h3>Mêntore 360. Concentre-se.</h3><div class="small" style="margin-top:10px;color:rgba(232,238,251,.6)">Fundo para Teams e videoconferências</div></div>
+          <div class="mk-in"><h3>Mêntore 360. Concentre e realize.</h3><div class="small" style="margin-top:10px;color:rgba(232,238,251,.6)">Fundo para Teams e videoconferências</div></div>
         </div>
         <div class="mock mail reveal d3">
-          <div class="mk-in"><div class="lk" style="color:#050c26">mêntore<span class="bar"></span><span class="n">360</span></div><div class="vbar"></div><div><div class="name">Nome Sobrenome</div><div class="role">Cargo · Mêntore</div><div class="tag">Mêntore 360. Concentre-se.</div><div class="role">Mêntore. Sonhe e realize.</div></div></div>
+          <div class="mk-in"><div class="lk" style="color:#050c26">mêntore<span class="bar"></span><span class="n">360</span></div><div class="vbar"></div><div><div class="name">Nome Sobrenome</div><div class="role">Cargo · Mêntore</div><div class="tag">Mêntore 360. Concentre e realize.</div><div class="role">Mêntore. Sonhe e realize.</div></div></div>
         </div>
       </div>
     </div>
     <div class="grid g2" style="margin-top:34px">
       <div class="reveal d2"><div class="kicker">WhatsApp interno e intranet</div>
         <div class="wa">
-          <div class="bubble"><b>Comunicação Mêntore</b><br>Faltam 7 dias. Onde está a sua atenção? Em breve, num lugar só.</div>
-          <div class="bubble"><b>Comunicação Mêntore</b><br>Chegou o dia. Às 10h, o CEO conta tudo no all-hands. Concentre-se.</div>
-          <div class="bubble"><b>Intranet</b><br>Hoje começa o Mêntore 360. Assista ao vídeo do CEO e descubra o que a gente passa a concentrar primeiro.</div>
+          <div class="bubble"><b>Comunicação Mêntore</b><br>Faltam 7 dias. Estamos construindo algo que vai reunir a empresa inteira num só lugar. Vem aí.</div>
+          <div class="bubble"><b>Comunicação Mêntore</b><br>Hoje, às 10h, o CEO apresenta o que estamos construindo. Vem aí o Mêntore 360.</div>
+          <div class="bubble"><b>Intranet</b><br>O Mêntore 360 está em construção. Assista ao vídeo do CEO e veja o que vai chegar primeiro ao mesmo lugar.</div>
         </div>
       </div>
       <div class="reveal d3"><div class="kicker">Kit completo pedido pelo briefing</div>
@@ -669,7 +739,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <div class="tl">
       <div class="tl-item reveal d1"><div class="when">Uma semana antes · teaser</div><h3>Onde está a sua atenção?</h3><p>Contagem regressiva nas TVs, protetores de tela e WhatsApp. Pedaços de sistemas aparecem espalhados pela sede. Ninguém explica o que vai acontecer.</p></div>
       <div class="tl-item reveal d2"><div class="when">No dia · revelação</div><h3>All-hands com o CEO</h3><p>Os pedaços se concentram num só ponto. Vídeo de 60 segundos, o conceito, o primeiro arco do anel aceso e a missão do time: concentrar.</p></div>
-      <div class="tl-item reveal d3"><div class="when">Na semana · a dinâmica</div><h3>Desafio Concentre-se</h3><p>Cada área mapeia o que hoje faz em pedaços e o que o 360 vai concentrar para o cliente. As respostas viram o Mural da Concentração na sede e o argumento comercial de cada time.</p></div>
+      <div class="tl-item reveal d3"><div class="when">Na semana · a dinâmica</div><h3>Desafio Concentre e Realize</h3><p>Cada área mapeia o que hoje faz em pedaços e o que o 360 vai concentrar para o cliente. As respostas viram o Mural da Concentração na sede e o argumento comercial de cada time.</p></div>
       <div class="tl-item reveal d4"><div class="when">Contínuo · sustentação</div><h3>Um arco por vez</h3><p>A intranet acompanha cada fase: qual módulo acendeu, o que passou a estar concentrado e as frases prontas para o comercial usar.</p></div>
     </div>
     <p class="small reveal d4" style="margin-top:30px">Kit interno pronto em até três semanas após a aprovação. Guia de 30 segundos para o comercial explicar o 360 com uma palavra.</p>
@@ -696,7 +766,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
       <div class="scene journey"><div><span class="no">09 · Jornada</span><h3>Movimentações</h3><q>O dinheiro se move e tudo se atualiza.</q></div><span class="dot"></span><span class="no">O pagamento sai e o financeiro já sabe.</span></div>
       <div class="scene journey"><div><span class="no">10 · Jornada</span><h3>DRE e balanço</h3><q>No dia 30, não há nada para reconstruir.</q></div><span class="dot"></span><span class="no">A contadora vê o lançamento na hora.</span></div>
       <div class="scene result"><div><span class="no">11 · Resultado</span><h3>Dashboards</h3><q>Cada contrato, cada posto, cada pessoa. Numa tela só.</q></div><span class="dot" style="--s:1.4"></span><span class="no">O CEO vê o mês enquanto ele acontece.</span></div>
-      <div class="scene result"><div><span class="no">12 · Mensagem final</span><h3>Concentre-se.</h3><q>A gente concentra tudo. Para você se concentrar no que importa. Mêntore 360. Concentre-se.</q></div><span class="dot" style="--s:2.2"></span><span class="no">Dia 30, 18h. As luzes se apagam no horário.</span></div>
+      <div class="scene result"><div><span class="no">12 · Mensagem final</span><h3>Concentre e realize.</h3><q>O Mêntore 360 concentra tudo. Para você se concentrar no que importa. Mêntore 360. Concentre e realize.</q></div><span class="dot" style="--s:2.2"></span><span class="no">Dia 30, 18h. As luzes se apagam no horário.</span></div>
     </div>
     <div class="strip-head"><p class="small">Versões: manifesto completo, 60 s para o lançamento interno, cortes de 30 s e 15 s para LinkedIn e YouTube. Interfaces abstratas e pessoas reais, luz fria e azulada, conforme o guide. Nada de demonstração de software.</p></div>
   </div>
@@ -707,7 +777,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   <div class="wrap">
     <div class="kicker reveal">Lançamento ao mercado · fevereiro de 2027</div>
     <h2 class="reveal d1">O mercado recebe uma permissão, não um sistema.</h2>
-    <p class="lead reveal d2">Concentre-se chega ao decisor como um convite: pode focar, a gente concentra o resto. Isso define o plano: pouca explicação, muita presença onde o decisor já está, e um caminho curto até a conversa comercial.</p>
+    <p class="lead reveal d2">Concentre e realize chega ao decisor como uma promessa: a gente concentra a gestão, você realiza. Isso define o plano: pouca explicação, muita presença onde o decisor já está, e um caminho curto até a conversa comercial.</p>
     <div class="grid g3" style="margin-top:40px">
       <div class="rule reveal d1"><h3>Clientes primeiro</h3><p style="color:var(--muted-on-light);margin-top:8px">Quem já usa o Mêntore conhece o 360 antes, num encontro dedicado. Viram os primeiros depoimentos.</p></div>
       <div class="rule reveal d2"><h3>O CEO como porta-voz</h3><p style="color:var(--muted-on-light);margin-top:8px">O manifesto abre a campanha. Imprensa de negócios, eventos do setor e o LinkedIn do CEO apresentam a nova categoria.</p></div>
@@ -797,7 +867,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <table class="reveal d3">
       <thead><tr><th>Etapa</th><th>KPI primário</th><th>Métricas de apoio</th><th>Ferramenta</th></tr></thead>
       <tbody>
-        <tr><td>Interno</td><td>Time que sabe explicar o 360 numa frase</td><td>Participação no all-hands, respostas ao Desafio Concentre-se, uso do kit</td><td>Pesquisa interna, intranet</td></tr>
+        <tr><td>Interno</td><td>Time que sabe explicar o 360 numa frase</td><td>Participação no all-hands, respostas ao Desafio Concentre e Realize, uso do kit</td><td>Pesquisa interna, intranet</td></tr>
         <tr><td>Atenção</td><td>Decisores alcançados com frequência mínima</td><td>Visualizações completas do manifesto, lift de reconhecimento</td><td>LinkedIn Campaign Manager, YouTube, brand lift</td></tr>
         <tr><td>Entendimento</td><td>Visitas qualificadas à página do 360</td><td>Tempo na página, cliques por cadeira, artigos lidos</td><td>GA4, LinkedIn</td></tr>
         <tr><td>Conversa</td><td>Pedidos de demonstração por cargo e porte</td><td>Custo por lead qualificado, taxa de resposta</td><td>GA4, CRM do Mêntore</td></tr>
@@ -815,7 +885,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <h2 class="reveal d1">Do briefing aos dois lançamentos, no prazo.</h2>
     <div class="tl">
       <div class="tl-item reveal d1"><div class="when">Semanas 1 e 2</div><h3>Conceito final e identidade</h3><p>Ajustes, selo de aplicação, slogan, guia de linguagem e sistema de fases.</p></div>
-      <div class="tl-item reveal d2"><div class="when">Semana 3 · novembro de 2026</div><h3>Lançamento interno</h3><p>Teaser, all-hands, vídeo de 60 s, Desafio Concentre-se e kit interno no ar.</p></div>
+      <div class="tl-item reveal d2"><div class="when">Semana 3 · novembro de 2026</div><h3>Lançamento interno</h3><p>Teaser, all-hands, vídeo de 60 s, Desafio Concentre e Realize e kit interno no ar.</p></div>
       <div class="tl-item reveal d3"><div class="when">Dezembro e janeiro</div><h3>Produção</h3><p>Vídeo-manifesto com o CEO, cortes, página do 360 e peças de mercado.</p></div>
       <div class="tl-item reveal d4"><div class="when">Fevereiro de 2027 em diante</div><h3>Mercado e fases</h3><p>Manifesto, LinkedIn, YouTube, imprensa e clientes. Cada módulo novo, uma nova onda.</p></div>
     </div>
@@ -852,8 +922,8 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     <div class="kicker reveal">Critérios de avaliação</div>
     <h2 class="reveal d1">Como a proposta responde a cada critério.</h2>
     <div class="why">
-      <div class="reveal d1"><h3>Aderência ao projeto e à intenção</h3><p>Concentrar é o efeito visível de uma plataforma única. A ideia diz o que o produto faz e o que o cliente ganha.</p></div>
-      <div class="reveal d2"><h3>Continuidade com a marca</h3><p>Guide 2026 v2 na íntegra. A assinatura permanece. O que muda é o raio da concentração.</p></div>
+      <div class="reveal d1"><h3>Aderência ao projeto e à intenção</h3><p>Concentrar é o que a plataforma faz. Realizar é o que o cliente ganha. A ideia diz as duas coisas.</p></div>
+      <div class="reveal d2"><h3>Continuidade com a marca</h3><p>Guide 2026 v2 na íntegra. O conceito nasce da própria assinatura: Sonhe e realize vira Concentre e realize.</p></div>
       <div class="reveal d3"><h3>Clareza para explicar uma plataforma complexa</h3><p>Nove módulos explicados por um verbo. Cada fase concentra mais uma coisa.</p></div>
       <div class="reveal d1"><h3>Força no interno e no mercado</h3><p>Uma missão para o time, uma permissão para o decisor. A mesma palavra nos dois lançamentos.</p></div>
       <div class="reveal d2"><h3>Viabilidade de produção e prazo</h3><p>Kit interno em três semanas. Manifesto produzido em paralelo para fevereiro.</p></div>
@@ -868,8 +938,8 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   <div class="arcs" data-arcs style="opacity:.6"></div>
   <div class="wrap">
     <div class="kicker reveal">Mêntore 360</div>
-    <h1 class="reveal d1">Concentre-se.</h1>
-    <p class="lead reveal d2" style="margin:20px auto 0">Mêntore. Sonhe e realize.</p>
+    <h1 class="reveal d1" style="font-size:clamp(52px,10vw,150px)">Concentre<br>e realize.</h1>
+    <p class="lead reveal d2" style="margin:20px auto 0">Mêntore 360 · Mêntore. Sonhe e realize.</p>
     <div class="czm-sig reveal d3"><i></i>CZM<i></i></div>
     <p class="footer-note reveal d4">Proposta para a concorrência do Mêntore 360 · novembro de 2026 · [contato]</p>
   </div>
@@ -1012,7 +1082,7 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
     {k:'Shared', n:'CEO e lideranças', d:['O CEO como porta-voz da nova categoria no LinkedIn.','Lideranças compartilham o que o 360 concentra na área delas.','Kit de posts para o time, pronto no lançamento interno.']},
     {k:'Shared', n:'Clientes e parceiros', d:['Clientes atuais conhecem o 360 antes do mercado.','Collabs com parceiros e palestrantes, a alavanca que mais rende hoje.','Depoimentos gravados viram peças.']},
     {k:'Earned', n:'Imprensa', d:['Entrevistas do CEO: o fim da gestão em pedaços.','Pauta de categoria: da solução de pagamento à plataforma de gestão.','Rankings e cadernos de RH e finanças.']},
-    {k:'Earned', n:'Eventos do setor', d:['CONARH e encontros de CFO e RH em 2027.','Palestra do CEO com o manifesto e o Desafio Concentre-se.','Collab com palestrantes, replicando o que já funciona no Instagram.']},
+    {k:'Earned', n:'Eventos do setor', d:['CONARH e encontros de CFO e RH em 2027.','Palestra do CEO com o manifesto e o Desafio Concentre e Realize.','Collab com palestrantes, replicando o que já funciona no Instagram.']},
     {k:'Paid', n:'LinkedIn Ads', d:['Segmentação por cargo, porte e setor: CEO, CFO, RH e gestores de grandes operações.','Vídeo do manifesto, documentos por cadeira e geração de demonstração.','Maior fatia da verba em todos os cenários.']},
     {k:'Paid', n:'YouTube', d:['Manifesto completo e cortes de 15 e 30 s para decisores.','Sequência: quem viu 60 s recebe a dor da sua cadeira.','Bumpers nas fases, anunciando cada módulo.']},
     {k:'Paid', n:'Programática e search', d:['Portais de negócios e finanças, com filtros de brand safety.','Search para quem já procura folha, benefícios ou gestão integrada.','Remarketing de quem viu o manifesto.']}
@@ -1063,6 +1133,23 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   }
   document.querySelectorAll('#tabs .btn').forEach(function(b){ b.addEventListener('click', function(){ renderScen(parseInt(b.dataset.s,10)); }); });
   renderScen(1);
+
+  /* rotating word */
+  var rot=document.getElementById('rot'), chips=document.querySelectorAll('.chip'), words=['sonhos.','negócios.','planos.','conquistas.','metas.'], wi=0, rotTimer;
+  function setWord(w){ rot.classList.add('out'); setTimeout(function(){ rot.textContent=w; rot.classList.remove('out'); },reduce?0:320); chips.forEach(function(c){ c.classList.toggle('active', c.dataset.w===w); }); }
+  function startRot(){ clearInterval(rotTimer); if(!reduce) rotTimer=setInterval(function(){ wi=(wi+1)%words.length; setWord(words[wi]); },2200); }
+  chips.forEach(function(c){ c.addEventListener('click', function(){ wi=words.indexOf(c.dataset.w); setWord(c.dataset.w); startRot(); }); });
+  setWord(words[0]); startRot();
+
+  /* applied phrases by phase */
+  var applied=document.getElementById('applied');
+  var sets=[
+    [['Teaser nas TVs da sede','Estamos construindo o lugar onde a empresa inteira vai se concentrar.'],['WhatsApp interno','Vem aí o Mêntore 360. Da vaga ao balanço, no mesmo lugar.'],['Fala do CEO no all-hands','Chega de administrar pedaços. E quem vai construir isso com a gente é você.'],['Intranet, a cada fase','Mais uma parte da gestão chegando ao mesmo lugar. Concentre e realize.']],
+    [['LinkedIn, abertura','Você abriu uma empresa para cuidar de quantas empresas?'],['Peça para o CFO','Menos tempo procurando informações. Mais tempo pra encontrar oportunidades.'],['Peça para o CEO','Você não precisa estar em todos os lugares. Precisa saber que tudo está no lugar.'],['Assinatura','Mêntore 360. Concentre e realize.']]
+  ];
+  function renderApplied(i){ applied.innerHTML=sets[i].map(function(x,k){ return '<div style="animation-delay:'+(k*0.08)+'s"><small>'+x[0]+'</small>'+x[1]+'</div>'; }).join(''); document.querySelectorAll('#phaseTabs .btn').forEach(function(b){ b.classList.toggle('active', parseInt(b.dataset.p,10)===i); }); }
+  document.querySelectorAll('#phaseTabs .btn').forEach(function(b){ b.addEventListener('click', function(){ renderApplied(parseInt(b.dataset.p,10)); }); });
+  renderApplied(0);
 
   if (hasGsap) { window.addEventListener('load', function(){ ScrollTrigger.refresh(); }); }
 })();
