@@ -170,7 +170,9 @@ p{max-width:62ch}
 .sw{height:120px;border-radius:14px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:13px;border:1px solid rgba(5,12,38,.08)}
 .sw b{font-weight:700;font-size:14px}
 .type-sample{margin-top:28px;display:grid;gap:10px}
-.type-sample div{display:grid;grid-template-columns:110px 1fr;align-items:baseline;gap:16px;border-top:1px solid rgba(5,12,38,.12);padding-top:10px}
+.type-sample > div{display:grid;grid-template-columns:130px 1fr;align-items:baseline;gap:16px;border-top:1px solid rgba(5,12,38,.12);padding-top:10px}
+.type-sample > div > div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:640px){.type-sample > div{grid-template-columns:1fr;gap:4px}.type-sample .l,.type-sample .r,.type-sample .bb{font-size:26px}}
 .type-sample span{font-size:13px;color:var(--muted-on-light)}
 .type-sample .l{font-weight:300;font-size:34px}.type-sample .r{font-weight:400;font-size:34px}.type-sample .bb{font-weight:700;font-size:34px}
 .logo-lockup{display:flex;align-items:center;gap:22px;font-size:46px;font-weight:500;letter-spacing:-.02em;color:var(--navy)}
@@ -361,12 +363,28 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
 .applied div small{display:block;font-size:12px;font-weight:500;color:var(--sky);margin-bottom:6px}
 @keyframes ap{to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.applied div{animation:none;opacity:1;transform:none}.rot{transition:none}}
+/* endomarketing */
+.endo-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.endo-meter{display:flex;align-items:center;gap:12px;margin-top:18px;font-size:14px;color:var(--muted-on-light)}
+.endo-meter .track{flex:0 0 220px;height:6px;border-radius:999px;background:rgba(0,0,139,.12);overflow:hidden}
+.endo-meter .fill{height:100%;width:33%;background:linear-gradient(90deg,var(--royal),var(--sky));border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.endo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:26px}
+@media (max-width:900px){.endo-grid{grid-template-columns:1fr}}
+.endo-card{background:#fff;border:1px solid rgba(5,12,38,.1);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px;opacity:0;transform:translateY(12px);animation:ap .55s forwards;transition:box-shadow .3s,transform .3s}
+.endo-card:hover{box-shadow:0 22px 50px rgba(0,0,139,.12)}
+.endo-card .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.endo-card h3{font-size:22px}
+.endo-card .when{font-size:13px;font-weight:500;color:var(--royal);white-space:nowrap}
+.endo-card p{color:var(--muted-on-light);font-size:15px}
+.endo-card .endo-why{font-size:14px;color:var(--navy);padding-top:10px;border-top:1px solid rgba(5,12,38,.1)}
+.endo-card .endo-why b{color:var(--royal)}
+@media (prefers-reduced-motion:reduce){.endo-card{animation:none;opacity:1;transform:none}}
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
 <div class="topbar"><span>Mêntore 360 · Proposta para a concorrência</span><span class="czm">CZM</span></div>
-<div class="frame-count" id="counter">01 / 28</div>
+<div class="frame-count" id="counter">01 / 29</div>
 
 <svg width="0" height="0" style="position:absolute">
   <defs>
@@ -746,6 +764,22 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   </div>
 </section>
 
+<!-- 15b ENDOMARKETING -->
+<section class="frame light" data-title="Ações de endomarketing">
+  <div class="wrap">
+    <div class="kicker reveal">Ações de endomarketing</div>
+    <h2 class="reveal d1">Antes de vender o 360, o time precisa viver o 360.</h2>
+    <p class="lead reveal d2">Doze ações em três níveis de ousadia, todas no modo “estamos construindo”. O Mêntore escolhe a combinação: a base garante que todo mundo entenda, o engajamento faz o time participar, o disruptivo faz o lançamento virar história.</p>
+    <div class="endo-tabs reveal d3" id="endoTabs">
+      <button class="btn active" data-e="0">Base · para todo mundo entender</button>
+      <button class="btn" data-e="1">Engajamento · para o time participar</button>
+      <button class="btn" data-e="2">Disruptivo · para virar história</button>
+    </div>
+    <div class="endo-meter reveal d3"><span>Ousadia</span><div class="track"><div class="fill" id="endoFill"></div></div></div>
+    <div class="endo-grid" id="endoGrid"></div>
+  </div>
+</section>
+
 <!-- 16 VÍDEO-MANIFESTO -->
 <section class="frame deep" id="video" data-title="Vídeo-manifesto">
   <div class="strip-pin" id="stripPin">
@@ -894,24 +928,24 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
 </section>
 
 <!-- 24 INVESTIMENTO -->
-<section class="frame light" data-title="Investimento por entrega">
+<section class="frame light" data-title="Prazo por entrega">
   <div class="wrap">
-    <div class="kicker reveal">Investimento por entrega</div>
-    <h2 class="reveal d1">O que entregamos, quando e quanto.</h2>
+    <div class="kicker reveal">Prazo por entrega</div>
+    <h2 class="reveal d1">O que entregamos, e quando.</h2>
     <table class="reveal d2">
-      <thead><tr><th>Entrega</th><th>O que inclui</th><th>Prazo</th><th>Investimento</th></tr></thead>
+      <thead><tr><th>Entrega</th><th>O que inclui</th><th>Prazo</th></tr></thead>
       <tbody>
-        <tr><td>Conceito e linguagem</td><td>Conceito, racional, tom de voz e guia de linguagem</td><td>Semanas 1 e 2</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Identidade do projeto</td><td>Selo de aplicação, paleta, slogan, templates e sistema de fases</td><td>Semanas 1 e 2</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Kit interno</td><td>Todas as peças internas do briefing e a dinâmica do lançamento</td><td>Semanas 2 e 3</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Vídeo-manifesto · criação</td><td>Roteiro, direção de arte e acompanhamento</td><td>Dezembro e janeiro</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Vídeo-manifesto · produção</td><td>Captação com o CEO, edição e finalização, cortes de 60, 30 e 15 s</td><td>Dezembro e janeiro</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Lançamento ao mercado</td><td>Página do 360, peças por cadeira, LinkedIn, YouTube e imprensa</td><td>Fevereiro de 2027</td><td class="money">R$ [__]</td></tr>
-        <tr><td>Mídia</td><td>Conforme o cenário escolhido: Essencial, Referência ou Liderança</td><td>Fevereiro de 2027 em diante</td><td class="money">R$ 6 mi a R$ 18 mi</td></tr>
-        <tr><td>Comunicação por fase</td><td>Uma onda de comunicação a cada módulo lançado</td><td>Mensal</td><td class="money">R$ [__] / mês</td></tr>
+        <tr><td>Conceito e linguagem</td><td>Conceito, racional, tom de voz e guia de linguagem</td><td>Semanas 1 e 2</td></tr>
+        <tr><td>Identidade do projeto</td><td>Selo de aplicação, paleta, slogan, templates e sistema de fases</td><td>Semanas 1 e 2</td></tr>
+        <tr><td>Kit interno</td><td>Todas as peças internas do briefing e a dinâmica do lançamento</td><td>Semanas 2 e 3</td></tr>
+        <tr><td>Vídeo-manifesto · criação</td><td>Roteiro, direção de arte e acompanhamento</td><td>Dezembro e janeiro</td></tr>
+        <tr><td>Vídeo-manifesto · produção</td><td>Captação com o CEO, edição e finalização, cortes de 60, 30 e 15 s</td><td>Dezembro e janeiro</td></tr>
+        <tr><td>Lançamento ao mercado</td><td>Página do 360, peças por cadeira, LinkedIn, YouTube e imprensa</td><td>Fevereiro de 2027</td></tr>
+        <tr><td>Mídia</td><td>Conforme o cenário escolhido: Essencial, Referência ou Liderança</td><td>Fevereiro de 2027 em diante</td></tr>
+        <tr><td>Comunicação por fase</td><td>Uma onda de comunicação a cada módulo lançado</td><td>Mensal, a cada módulo</td></tr>
       </tbody>
     </table>
-    <p class="small reveal d3" style="margin-top:18px">A produção do vídeo varia conforme o roteiro aprovado e as diárias de captação.</p>
+    <p class="small reveal d3" style="margin-top:18px">Prazos contados a partir da aprovação. A produção do vídeo depende do roteiro aprovado e da agenda de captação com o CEO.</p>
   </div>
 </section>
 
@@ -1150,6 +1184,36 @@ td.money{white-space:nowrap;font-variant-numeric:tabular-nums}
   function renderApplied(i){ applied.innerHTML=sets[i].map(function(x,k){ return '<div style="animation-delay:'+(k*0.08)+'s"><small>'+x[0]+'</small>'+x[1]+'</div>'; }).join(''); document.querySelectorAll('#phaseTabs .btn').forEach(function(b){ b.classList.toggle('active', parseInt(b.dataset.p,10)===i); }); }
   document.querySelectorAll('#phaseTabs .btn').forEach(function(b){ b.addEventListener('click', function(){ renderApplied(parseInt(b.dataset.p,10)); }); });
   renderApplied(0);
+
+  /* endomarketing levels */
+  var endo = [
+    [
+      ['Trilha 360 em microaulas','Nove aulas de até 3 minutos na intranet, uma por módulo, liberadas conforme a construção avança. Quem conclui a trilha recebe o selo Especialista 360 na assinatura de e-mail.','Contínuo','O 360 entra em fases. A formação acompanha o mesmo ritmo, sem despejar nove módulos de uma vez.'],
+      ['Guia de bolso do comercial','Um cartão e uma versão digital com o 360 explicado em 30 segundos, a resposta para as cinco objeções mais comuns e o que já está disponível hoje.','Dia da revelação','O briefing diz que o time precisa entender, defender e vender. Esta peça resolve as três coisas.'],
+      ['Kit de mesa Concentre e realize','Caderno com nove seções, uma por módulo, e a primeira página em branco com a pergunta: o que você vai realizar quando a empresa estiver concentrada?','Dia da revelação','Objeto físico, útil no dia a dia, que carrega o conceito sem precisar de explicação.'],
+      ['Tudo com a cara do 360 no mesmo dia','Assinatura de e-mail, fundo de Teams, protetor de tela e TVs trocam juntos, na mesma hora do all-hands. A empresa inteira muda de cara ao mesmo tempo.','Dia da revelação','Mostra concentração na prática: uma decisão, todos os canais ao mesmo tempo.']
+    ],
+    [
+      ['Embaixadores 360','Uma pessoa por área conhece o 360 duas semanas antes, participa de uma sessão com o time de produto e vira referência para os colegas. Os nomes aparecem no lançamento.','Duas semanas antes','Dá rosto e voz ao projeto dentro de cada área, e cria defensores antes de existir pergunta.'],
+      ['Desafio Concentre e realize','Cada área mapeia o que hoje faz em pedaços e o que o 360 vai concentrar para o cliente. As melhores respostas viram o Mural da Concentração e argumentos reais do comercial.','Semana do lançamento','Transforma o time em fonte de conteúdo e testa a linguagem antes de ela chegar ao mercado.'],
+      ['Mural “O que eu vou realizar”','Na sede e na intranet, cada colaborador completa a frase “Concentre e realize…” com algo seu: um plano, uma meta, um sonho. As frases viram peças nas TVs.','Semana do lançamento','Conecta o conceito novo ao “Sonhe e realize” de sempre, pelo lado pessoal.'],
+      ['Pergunte ao CEO','Depois do all-hands, uma sessão aberta de perguntas com o CEO e o time de produto. Perguntas anônimas pela intranet, respostas gravadas e publicadas.','Uma semana depois','O briefing pede o CEO como voz do projeto. Aqui ele escuta antes de falar com o mercado.']
+    ],
+    [
+      ['Quebra-cabeça de 360 peças','Na véspera, cada colaborador recebe uma peça com um número e nenhuma explicação. No all-hands, todos levam sua peça ao palco e montam juntos o símbolo do 360. A última peça quem coloca é o CEO.','Véspera e dia da revelação','É o conceito encenado pelo próprio time: pedaços espalhados viram uma coisa só. Rende foto, vídeo e o primeiro post do CEO no LinkedIn.'],
+      ['Canteiro de obras do 360','A sede ganha tapumes com os nove módulos, como uma obra. A cada módulo lançado, um tapume sai e revela o que ficou pronto. O escritório vira o cronograma vivo da construção.','Contínuo, por fase','Traduz o “estamos construindo” pedido pelo cliente num lugar físico que o time vê todo dia.'],
+      ['Hora concentrada','Durante a semana do lançamento, uma hora por dia sem reuniões e sem notificações para a empresa inteira, com o aviso: esta hora é para o seu próximo passo. Se pegar, vira ritual fixo.','Semana do lançamento','O time sente na pele o benefício que vai vender: atenção livre para pensar adiante.'],
+      ['Um dia na empresa em pedaços','Duplas do comercial e do atendimento passam meio dia acompanhando o RH ou o financeiro de um cliente atual, vendo de perto a vaga num sistema e a folha em outro. Voltam e contam o que viram.','Primeiro mês','Ninguém vende melhor uma solução do que quem viu o problema. E aproxima o time dos clientes antes do mercado.']
+    ]
+  ];
+  var endoGrid=document.getElementById('endoGrid'), endoFill=document.getElementById('endoFill');
+  function renderEndo(i){
+    endoGrid.innerHTML=endo[i].map(function(a,k){ return '<div class="endo-card" style="animation-delay:'+(k*0.08)+'s"><div class="top"><h3>'+a[0]+'</h3><span class="when">'+a[2]+'</span></div><p>'+a[1]+'</p><div class="endo-why"><b>Por que funciona no Mêntore: </b>'+a[3]+'</div></div>'; }).join('');
+    endoFill.style.width=((i+1)/3*100)+'%';
+    document.querySelectorAll('#endoTabs .btn').forEach(function(b){ b.classList.toggle('active', parseInt(b.dataset.e,10)===i); });
+  }
+  document.querySelectorAll('#endoTabs .btn').forEach(function(b){ b.addEventListener('click', function(){ renderEndo(parseInt(b.dataset.e,10)); }); });
+  renderEndo(0);
 
   if (hasGsap) { window.addEventListener('load', function(){ ScrollTrigger.refresh(); }); }
 })();
